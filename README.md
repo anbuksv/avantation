@@ -16,11 +16,17 @@ avantation is written and maintained by Anbarasan K (anbu@nullobject.io).
 * Code home page: https://github.com/anbuksv/avnatation
 * Issue tracker: https://github.com/anbuksv/avantation/issues
 
-# Building
+# Install
 
-avantation required nodejs 8.0.0 or higher.
+If you have Node installed on your computer just run npm i
+```npm install -g avantation```
 
-    npm install -g avantation
+Direct download links
+
+* [Windows-x64](https://s3.ap-south-1.amazonaws.com/avantation/releases/v1.0.0/avantation-v1.0.0-x64.exe)
+* [Windows-x86](https://s3.ap-south-1.amazonaws.com/avantation/releases/v1.0.0/avantation-v1.0.0-x86.exe)
+* [Debian-amd64(Ubuntu)](https://s3.ap-south-1.amazonaws.com/avantation/releases/v1.0.0/avantation_1.0.0-1_amd64.deb)
+* [Debian-armel(Ubuntu)](https://s3.ap-south-1.amazonaws.com/avantation/releases/v1.0.0/avantation_1.0.0-1_armel.deb)
 
 # Features
 * OpenAPI 3.0 Support
