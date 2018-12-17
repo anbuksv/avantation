@@ -1,0 +1,254 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-12-17T01:26:19.163Z",
+	"__export_source": "insomnia.desktop.app:v6.3.1",
+	"resources": [
+		{
+			"_id": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"created": 1544849604392,
+			"description": "",
+			"modified": 1544849604392,
+			"name": "Avantation",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_4ba8eb16f95943d6b782cab518fbb016",
+			"color": null,
+			"created": 1544849604579,
+			"data": {
+				"host": "http://demo.avantation.in/api/",
+				"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU"
+			},
+			"isPrivate": false,
+			"metaSortKey": 1544849604579,
+			"modified": 1544950571744,
+			"name": "New Environment",
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_12b24f4c9356425da4b6e9390300921a",
+			"cookies": [],
+			"created": 1544849604682,
+			"modified": 1544849604682,
+			"name": "Default Jar",
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_fc9440d534794b00af0d6632bde90608",
+			"authentication": {},
+			"body": {},
+			"created": 1544849846865,
+			"description": "",
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1543852555124.75,
+			"method": "GET",
+			"modified": 1544885311558,
+			"name": "Retrieve All todos #tag=Todo",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/todos",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9bede4813212434f8fd74a77b31a3c9e",
+			"authentication": {},
+			"body": {},
+			"created": 1544849899737,
+			"description": "",
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1543254180080,
+			"method": "GET",
+			"modified": 1544885312463,
+			"name": "(PATH) Retrieve Todo based on Id  #tag=Todo",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/todos/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_8558adb9d0b046dda02ce919d767d8de",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"todo\": \"Cleant the house\",\n\t\"completed\": true\n}"
+			},
+			"created": 1544849945700,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1542456346687,
+			"method": "PUT",
+			"modified": 1544885317108,
+			"name": "Update Todo Based on Id #tag=Todo",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/todos/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_36334a5b00384101b47f0ffda950d499",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"todo\":\"Clean the house\",\n\t\"completed\": false\n}"
+			},
+			"created": 1544850032470,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1544376133288.9062,
+			"method": "POST",
+			"modified": 1544865776470,
+			"name": "Create new todo #tag=Todo",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/todos",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0242f9bd2675427787ad0fed3e57c822",
+			"authentication": {},
+			"body": {},
+			"created": 1544850079915,
+			"description": "",
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1542057429990.5,
+			"method": "DELETE",
+			"modified": 1544885318880,
+			"name": "Delete Todo based on Id #tag=Todo",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/todos/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_13822ea7de104cc991ae915854425d0c",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"email\":\"demo@testing.com\",\n\t\"password\": \"EC84D5D857ABE\"\n}"
+			},
+			"created": 1544851228768,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1544376133338.9062,
+			"method": "POST",
+			"modified": 1544868572532,
+			"name": "Login #tag=Auth",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f00d71897803426f8f8203599e103138",
+			"authentication": {},
+			"body": {},
+			"created": 1544859415738,
+			"description": "",
+			"headers": [
+				{
+					"name": "Authorization",
+					"value": "Bearer {{ token  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1542855263383.5,
+			"method": "GET",
+			"modified": 1544885314739,
+			"name": "(QUERY) Retrieve Todo based on Id  #tag=Todo",
+			"parameters": [],
+			"parentId": "wrk_3c76c9ef3c68484ba6d893fb384e9e1a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ host  }}v1/todos?id_like=1",
+			"_type": "request"
+		}
+	]
+}

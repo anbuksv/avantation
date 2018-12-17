@@ -1,0 +1,60 @@
+{
+  "name": "avantation",
+  "description": "Designed for programmers to generate documentation for large scal REST API's.",
+  "version": "1.0.0",
+  "author": "Anbarasan K <anbu@nullobject.io> (www.avantation.in)",
+  "bin": {
+    "avantation": "./bin/run"
+  },
+  "bugs": "https://github.com/anbuksv/avantation/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.6",
+    "@oclif/config": "^1.9.0",
+    "@oclif/plugin-help": "^2.1.4",
+    "generate-schema": "^2.6.0",
+    "httpsnippet": "^1.16.5",
+    "json2yaml": "^1.1.0",
+    "shins": "^2.3.2-3",
+    "tslib": "^1.9.3",
+    "url-parse": "^1.4.4",
+    "widdershins": "^3.6.6"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.12",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "engines": {
+    "node": ">=10.14.2"
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "homepage": "https://github.com/anbuksv/avantation",
+  "keywords": [
+    "oclif",
+    "avantation",
+    "documentation",
+    "REST",
+    "REST API'S",
+    "API",
+    "OpenAPI Sepecification",
+    "OAS",
+    "Swagger",
+    "HAR",
+    "OpenAPI"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "bin": "avantation"
+  },
+  "repository": "anbuksv/avantation",
+  "scripts": {
+    "prepack": "rm -rf lib && tsc -b "
+  },
+  "types": "lib/index.d.ts"
+}
