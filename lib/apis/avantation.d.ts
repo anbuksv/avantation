@@ -1,0 +1,34 @@
+import * as Avantation from '../interfaces/avantation';
+import * as HAR from '../interfaces/har';
+import * as OAS from '../interfaces/oas';
+export declare class AvantationAPI implements Avantation.InputConfig {
+    har: HAR.Final;
+    template: OAS.Template;
+    host: string;
+    basePath: string;
+    out: string;
+    pathParamRegex: string;
+    pipe: boolean;
+    json: boolean;
+    pathRegex: RegExp;
+    tagsHolder: any;
+    oclif: any;
+    disableTag: boolean;
+    mimeTypes: string[];
+    securityHeaders: OAS.SecurityMap;
+    uiLogo?: string;
+    constructor(input: Avantation.InputConfig, oclif: any);
+    private run;
+    buildEntry(entry: HAR.HarEntrie): void;
+    buildPathDetails(url: Avantation.URL): Avantation.Path | undefined;
+    buildHardCodedQueryParams(url: Avantation.URL): OAS.ParameterObject[];
+    buildQueryParams(queryArray: HAR.NameValue[]): OAS.ParameterObject[];
+    buildRequestbody(postData: HAR.PostData | undefined, url: Avantation.URL): OAS.RequestBodyObject | undefined;
+    buildFormData(postData: HAR.PostData): any;
+    buildResponse(res: HAR.HarResponse): OAS.Response;
+    buildSecurity(headers: HAR.NameValue[]): OAS.SecurityRequirementObject;
+    buildTag(comment: string | undefined, pathTag: string | undefined): Avantation.PathItemInfo;
+    generateSampleCodes(harRequest: HAR.HarRequest): Avantation.Snippet[];
+    onBuildComplete(openapi: OAS.Template): void;
+    buildStaticUI(): void;
+}

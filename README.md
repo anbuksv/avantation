@@ -12,7 +12,7 @@ avantation is written and maintained by Anbarasan K (anbu@nullobject.io).
 
 [![Version](https://img.shields.io/npm/v/avantation.svg)](https://npmjs.org/package/avantation) [![Downloads/week](https://img.shields.io/npm/dw/avantation.svg)](https://npmjs.org/package/avantation) [![License](https://img.shields.io/npm/l/avantation.svg)](https://github.com/anbuksv/avantation/blob/master/package.json)
 
-* Project home page: https://avantation.in/
+* Project home page: http://avantation.in/
 * Code home page: https://github.com/anbuksv/avnatation
 * Issue tracker: https://github.com/anbuksv/avantation/issues
 
