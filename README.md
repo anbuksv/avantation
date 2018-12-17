@@ -18,8 +18,11 @@ avantation is written and maintained by Anbarasan K (anbu@nullobject.io).
 
 # Install
 
-If you have Node installed on your computer just run npm i
-```npm install -g avantation```
+If you have Node installed on your computer just run npm install
+
+```
+npm install -g avantation
+```
 
 Direct download links
 
