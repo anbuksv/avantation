@@ -45,7 +45,7 @@ export const BASE_PATH: flages = {
         short: "API host base path. Example:['api/v1']",
         long: "\tBase path of the end point"
     },
-    default: "/"
+    default: ""
 };
 export const PATH_REGEX: flages = {
     short: "r",

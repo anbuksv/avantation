@@ -134,7 +134,7 @@ class Avantation extends Command {
     var input: AvantationInterface.InputConfig = {
         har: har,
         host: host,
-        basePath: flags["base-path"] || "/",
+        basePath: flags["base-path"] || "",
         template: template,
         out: flags.out || "./openapi.yaml",
         pathParamRegex: flags["path-param-regex"] || "[0-9]|[-$@!~%^*()_+]",

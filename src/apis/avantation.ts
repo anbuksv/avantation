@@ -140,7 +140,7 @@ export class AvantationAPI implements Avantation.InputConfig {
 
     buildPathDetails(url: Avantation.URL): Avantation.Path | undefined {
         let basePathArr =
-            ( this.basePath === "/")
+            ( this.basePath === "")
                 ? ["", url.pathname]
                 :  url.pathname.split(this.basePath);
 
