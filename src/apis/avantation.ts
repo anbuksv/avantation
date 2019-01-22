@@ -30,6 +30,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     securityHeaders: OAS.SecurityMap;
     uiLogo?: string;
     "build-static-ui": boolean;
+    "http-snippet": boolean;
 
     constructor(input: Avantation.InputConfig, oclif: any) {
         this.har = input.har;
@@ -49,6 +50,7 @@ export class AvantationAPI implements Avantation.InputConfig {
             this.uiLogo = path.resolve(input.uiLogo)
         }
         this["build-static-ui"] = input["build-static-ui"];
+        this["http-snippet"] = input["http-snippet"];
         this.run();
     }
 
@@ -89,17 +91,18 @@ export class AvantationAPI implements Avantation.InputConfig {
         let response: OAS.Response = this.buildResponse(entry.response);
         let security: OAS.SecurityRequirementObject = this.buildSecurity(entry.request.headers);
         let pathItemInfo: Avantation.PathItemInfo = this.buildTag(entry.comment, path.tag);
-        let sampleCodes: Avantation.Snippet[] = this.generateSampleCodes(entry.request);
         let operationItem: OAS.OperationObject = {
             security: Object.keys(security).length > 0 ? [security] : [],
             tags: [pathItemInfo.tag],
             summary: pathItemInfo.comment || pathItemInfo.tag,
             parameters: [...path.params, ...hardCodedQuery, ...queryParams],
             requestBody: requestBody,
-            responses: response,
-            "x-code-samples": sampleCodes
+            responses: response
         }
 
+        if(this["http-snippet"]) {
+            operationItem["x-code-samples"] =  this.generateSampleCodes(entry.request);
+        }
 
         if (this.disableTag)
             delete operationItem.tags;

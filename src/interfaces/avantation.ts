@@ -59,4 +59,5 @@ export interface InputConfig {
     securityHeaders: OAS.SecurityMap;
     uiLogo?: string;
     "build-static-ui": boolean;
+    "http-snippet": boolean;
 }

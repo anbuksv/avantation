@@ -83,6 +83,10 @@ class Avantation extends Command {
     "static-ui-logo": flags.string({
       description: Docs.STATIC_UI_LOGO.description.short
     }),
+    "http-snippet": flags.boolean({
+        description: Docs.HTTP_SNIPPET.description.short,
+        default: false
+    }),
     "man": flags.boolean({
       description: "print manual."
     })
@@ -111,7 +115,8 @@ class Avantation extends Command {
       disableTag: flags["disable-tag"],
       securityHeaders: JSON.parse(flags["security-headers"] || "{}"),
       uiLogo: flags["static-ui-logo"],
-      "build-static-ui": flags["build-static-ui"]
+      "build-static-ui": flags["build-static-ui"],
+      "http-snippet": flags["http-snippet"]
     }
 
     new AvantationAPI(input, this);

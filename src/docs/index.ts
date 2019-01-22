@@ -116,6 +116,15 @@ export const BUILD_STATIC_UI: flages = {
     default: `${getDefault('false')}`
 }
 
+export const HTTP_SNIPPET: flages = {
+    long: "http-snippet",
+    required: false,
+    description: {
+        short: "generate the smaple code for http request."
+    },
+    default: `${getDefault('false')}`
+}
+
 export const _JSON: flages = {
     short: "j",
     long: "json",
@@ -172,8 +181,9 @@ export let manual: flages[] = [
     , SECURITY_HEADERS
     , TEMPLATE
     , DIABLE_TAG
-    , STATIC_UI_LOGO
+    , HTTP_SNIPPET
     , BUILD_STATIC_UI
+    , STATIC_UI_LOGO
     , _JSON
     , PIPE
     , OUT
