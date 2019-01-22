@@ -126,20 +126,24 @@ export class AvantationAPI implements Avantation.InputConfig {
                 this.template.paths[path.value].put = operationItem;
                 break;
             case "delete":
-                method=`${Color.Bright}${Color.fg.Red}DELETE ${Color.Reset}`;
+                method=`${Color.Bright}${Color.fg.Red}DEL ${Color.Reset}`;
                 this.template.paths[path.value].delete = operationItem;
                 break;
             case "del":
-                method=`${Color.Bright}${Color.fg.Red}DELETE ${Color.Reset}`;
+                method=`${Color.Bright}${Color.fg.Red}DEL ${Color.Reset}`;
                 this.template.paths[path.value].delete = operationItem;
                 break;
         }
         if(!this.pipe)
-            this.logSucess(method + " " + url.pathname);
+            this.logSucess(method + "\t" + url.pathname);
     }
 
     buildPathDetails(url: Avantation.URL): Avantation.Path | undefined {
-        let basePathArr = url.pathname.split(this.basePath);
+        let basePathArr =
+            ( this.basePath === "/")
+                ? ["", url.pathname]
+                :  url.pathname.split(this.basePath);
+
         if (basePathArr.length !== 2) {
             this.oclif.warn("Skiping following invalid path API:" + JSON.stringify({
                 host: url.host,
@@ -148,6 +152,7 @@ export class AvantationAPI implements Avantation.InputConfig {
             }, null, 4));
             return undefined;
         }
+
         let pathArr = basePathArr[1].split("/");
         let pathTag: string | undefined = undefined;
         let that = this;

@@ -31,9 +31,10 @@ export const HAR: flages = {
 export const HOST: flages = {
     short: "h",
     long: "host",
-    required: true,
+    required: false,
     description: {
-        short: "Host Name"
+        short: "host name",
+        long: "Host name is mandatore field to build openapi sepcification by default it will be first request url in HAR."
     }
 };
 export const BASE_PATH: flages = {
@@ -43,7 +44,8 @@ export const BASE_PATH: flages = {
     description: {
         short: "API host base path. Example:['api/v1']",
         long: "\tBase path of the end point"
-    }
+    },
+    default: "/"
 };
 export const PATH_REGEX: flages = {
     short: "r",
@@ -111,7 +113,7 @@ export const BUILD_STATIC_UI: flages = {
     long: "build-static-ui",
     required: false,
     description: {
-        short: "build the static user interface form OAS3.0"
+        short: "build the static user interface from OAS3.0"
     },
     default: `${getDefault('false')}`
 }

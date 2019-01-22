@@ -8,6 +8,7 @@ import * as HAR from './interfaces/har';
 import * as AvantationInterface from './interfaces/avantation';
 import * as OAS from './interfaces/oas';
 import * as Docs from './docs/index';
+var URL: any = require('url-parse');
 
 let manual = process.argv.slice(2).some((cmd) => {
   return (cmd == "--man") ? true : false
@@ -59,13 +60,15 @@ class Avantation extends Command {
 	static flags = {
     	"host": flags.string({
       		char: Docs.HOST.short,
-      		description: Docs.HOST.description.short,
-      		required: true
+      		description: Docs.HOST.description.long,
+            default:Docs.HOST.default,
+      		required: false
     	}),
     	"base-path": flags.string({
       		char: Docs.BASE_PATH.short,
       		description: Docs.BASE_PATH.description.short,
-      		required: true
+            default:Docs.BASE_PATH.default,
+      		required: false
     	}),
     	"template": flags.string({
       		char: Docs.TEMPLATE.short,
@@ -123,20 +126,25 @@ class Avantation extends Command {
       }
     }
     template = defaultTemplate;
+    let host:string = flags.host
+                            ? flags.host
+                            : (har.log.entries.length > 0)
+                            ? new URL(har.log.entries[0].request.url).host
+                            : "url parse failed - avantation";
     var input: AvantationInterface.InputConfig = {
-      har: har,
-      host: flags.host,
-      basePath: flags["base-path"],
-      template: template,
-      out: flags.out || "./openapi.yaml",
-      pathParamRegex: flags["path-param-regex"] || "[0-9]|[-$@!~%^*()_+]",
-      pipe: pipe,
-      json: flags.json,
-      disableTag: flags["disable-tag"],
-      securityHeaders: JSON.parse(flags["security-headers"] || "{}"),
-      uiLogo: flags["static-ui-logo"],
-      "build-static-ui": flags["build-static-ui"],
-      "http-snippet": flags["http-snippet"]
+        har: har,
+        host: host,
+        basePath: flags["base-path"] || "/",
+        template: template,
+        out: flags.out || "./openapi.yaml",
+        pathParamRegex: flags["path-param-regex"] || "[0-9]|[-$@!~%^*()_+]",
+        pipe: pipe,
+        json: flags.json,
+        disableTag: flags["disable-tag"],
+        securityHeaders: JSON.parse(flags["security-headers"] || "{}"),
+        uiLogo: flags["static-ui-logo"],
+        "build-static-ui": flags["build-static-ui"],
+        "http-snippet": flags["http-snippet"]
     }
 
     new AvantationAPI(input, this);
