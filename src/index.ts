@@ -28,73 +28,93 @@ if (manual) {
   process.exit(0);
 }
 
-class Avantation extends Command {
-  static description = Docs.SHORT_DESCRIPTION
 
-  static flags = {
-    "har": flags.string({
-      description: Docs.HAR.description.short,
-      required: true
-    }),
-    "host": flags.string({
-      char: Docs.HOST.short,
-      description: Docs.HOST.description.short,
-      required: true
-    }),
-    "base-path": flags.string({
-      char: Docs.BASE_PATH.short,
-      description: Docs.BASE_PATH.description.short,
-      required: true
-    }),
-    "template": flags.string({
-      char: Docs.TEMPLATE.short,
-      description: Docs.TEMPLATE.description.short
-    }),
-    "out": flags.string({
-      char: Docs.OUT.short,
-      description: Docs.OUT.description.short,
-      default: "./openapi.yaml"
-    }),
-    "path-param-regex": flags.string({
-      char: Docs.PATH_REGEX.short,
-      description: Docs.PATH_REGEX.description.short,
-      default: "[0-9]|[-$@!~%^*()_+]"
-    }),
-    "pipe": flags.boolean({
-      char: Docs.PIPE.short,
-      description: Docs.PIPE.description.short
-    }),
-    "json": flags.boolean({
-      char: Docs._JSON.short,
-      description: Docs._JSON.description.short
-    }),
-    "disable-tag": flags.boolean({
-      description: Docs.DIABLE_TAG.description.short
-    }),
-    "security-headers": flags.string({
-      char: Docs.SECURITY_HEADERS.short,
-      description: Docs.SECURITY_HEADERS.description.short,
-      default: "{}"
-    }),
-    "build-static-ui":flags.boolean({
-        description: Docs.BUILD_STATIC_UI.description.short,
-        default: false
-    }),
-    "static-ui-logo": flags.string({
-      description: Docs.STATIC_UI_LOGO.description.short
-    }),
-    "http-snippet": flags.boolean({
-        description: Docs.HTTP_SNIPPET.description.short,
-        default: false
-    }),
-    "man": flags.boolean({
-      description: "print manual."
-    })
+let pipe:boolean = !process.stdout.isTTY;
+let stdin:boolean = !process.stdin.isTTY;
+let stdinput = "";
+
+if(stdin) {
+	process.stdin.setEncoding('utf8');
+    process.stdin.on('readable', () => {
+        let chunk;
+        // Use a loop to make sure we read all available data.
+        while ((chunk = process.stdin.read()) !== null) {
+            stdinput = stdinput + chunk;
+        };
+    });
+    process.stdin.on('end', () => {
+    });
+}
+
+class Avantation extends Command {
+	static description = Docs.SHORT_DESCRIPTION;
+	static args = [
+    	{
+            name: 'har',
+            description: "http archive(har) path",
+            required: !stdin
+        }
+  	];
+
+	static flags = {
+    	"host": flags.string({
+      		char: Docs.HOST.short,
+      		description: Docs.HOST.description.short,
+      		required: true
+    	}),
+    	"base-path": flags.string({
+      		char: Docs.BASE_PATH.short,
+      		description: Docs.BASE_PATH.description.short,
+      		required: true
+    	}),
+    	"template": flags.string({
+      		char: Docs.TEMPLATE.short,
+      		description: Docs.TEMPLATE.description.short
+    	}),
+    	"out": flags.string({
+      		char: Docs.OUT.short,
+		    description: Docs.OUT.description.short,
+      		default: "./openapi.yaml"
+    	}),
+    	"path-param-regex": flags.string({
+      		char: Docs.PATH_REGEX.short,
+      		description: Docs.PATH_REGEX.description.short,
+      		default: "[0-9]|[-$@!~%^*()_+]"
+    	}),
+    	"json": flags.boolean({
+	    	char: Docs._JSON.short,
+		 	description: Docs._JSON.description.short
+	    }),
+    	"disable-tag": flags.boolean({
+	     	description: Docs.DIABLE_TAG.description.short
+    	}),
+	    "security-headers": flags.string({
+    		char: Docs.SECURITY_HEADERS.short,
+		    description: Docs.SECURITY_HEADERS.description.short,
+		    default: "{}"
+	    }),
+    	"build-static-ui":flags.boolean({
+        	description: Docs.BUILD_STATIC_UI.description.short,
+	        default: false
+    	}),
+	    "static-ui-logo": flags.string({
+    		description: Docs.STATIC_UI_LOGO.description.short
+	    }),
+	    "http-snippet": flags.boolean({
+    		description: Docs.HTTP_SNIPPET.description.short,
+	        default: false
+    	}),
+	    "man": flags.boolean({
+    	 	description: "print manual."
+    	})
   }
 
   async run() {
     const { flags } = this.parse(Avantation);
-    let har: HAR.Final = JSON.parse(fs.readFileSync(path.resolve(flags.har), { encoding: 'utf-8' }));
+	const {args} = this.parse(Avantation);
+    let har: HAR.Final =
+        (stdin) ? JSON.parse(stdinput)
+            : JSON.parse(fs.readFileSync(path.resolve(args.har), { encoding: 'utf-8' }));
     let template: OAS.Template;
     if (flags.template) {
       let _template: any = JSON.parse(fs.readFileSync(path.resolve(flags.template), { encoding: 'utf-8' }));
@@ -110,7 +130,7 @@ class Avantation extends Command {
       template: template,
       out: flags.out || "./openapi.yaml",
       pathParamRegex: flags["path-param-regex"] || "[0-9]|[-$@!~%^*()_+]",
-      pipe: flags.pipe,
+      pipe: pipe,
       json: flags.json,
       disableTag: flags["disable-tag"],
       securityHeaders: JSON.parse(flags["security-headers"] || "{}"),
