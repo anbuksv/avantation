@@ -53,7 +53,7 @@ class Avantation extends Command {
     "out": flags.string({
       char: Docs.OUT.short,
       description: Docs.OUT.description.short,
-      default: "./avantation.yaml"
+      default: "./openapi.yaml"
     }),
     "path-param-regex": flags.string({
       char: Docs.PATH_REGEX.short,
@@ -76,9 +76,9 @@ class Avantation extends Command {
       description: Docs.SECURITY_HEADERS.description.short,
       default: "{}"
     }),
-    "disable-static-ui": flags.boolean({
-      description: Docs.DISABLE_STATIC_UI.description.short,
-      default: false
+    "build-static-ui":flags.boolean({
+        description: Docs.BUILD_STATIC_UI.description.short,
+        default: false
     }),
     "static-ui-logo": flags.string({
       description: Docs.STATIC_UI_LOGO.description.short
@@ -90,9 +90,6 @@ class Avantation extends Command {
 
   async run() {
     const { flags } = this.parse(Avantation);
-    if (flags.man) {
-      console.log(Docs.manual);
-    }
     let har: HAR.Final = JSON.parse(fs.readFileSync(path.resolve(flags.har), { encoding: 'utf-8' }));
     let template: OAS.Template;
     if (flags.template) {
@@ -107,13 +104,14 @@ class Avantation extends Command {
       host: flags.host,
       basePath: flags["base-path"],
       template: template,
-      out: flags.out || "./avantation.yaml",
+      out: flags.out || "./openapi.yaml",
       pathParamRegex: flags["path-param-regex"] || "[0-9]|[-$@!~%^*()_+]",
       pipe: flags.pipe,
       json: flags.json,
       disableTag: flags["disable-tag"],
       securityHeaders: JSON.parse(flags["security-headers"] || "{}"),
-      uiLogo: flags["static-ui-logo"]
+      uiLogo: flags["static-ui-logo"],
+      "build-static-ui": flags["build-static-ui"]
     }
 
     new AvantationAPI(input, this);

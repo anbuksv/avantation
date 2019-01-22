@@ -62,12 +62,12 @@ export const SECURITY_HEADERS: flages = {
     description: {
         short: "Custom Securtity Headers configurarion.(SecuritySchemeObject as per OAS3.0)",
         long: `\tTo map custom security headers link 'x-api-key' as autorization header.
-            
+
             ${getTitle('Syntax')}
                 {
                     "${colors.fg.Red}headerNameInHTTPRequest${colors.Reset}": {Sequrity Scheme Object as per OAS3.0}
                 }
-            
+
             ${getTitle('Example')}
                 {
                     "${colors.fg.Green}x-api-key${colors.Reset}": {
@@ -107,11 +107,11 @@ export const STATIC_UI_LOGO: flages = {
     }
 }
 
-export const DISABLE_STATIC_UI: flages = {
-    long: "disable-static-ui",
+export const BUILD_STATIC_UI: flages = {
+    long: "build-static-ui",
     required: false,
     description: {
-        short: "disable the static ui file generation process."
+        short: "build the static user interface form OAS3.0"
     },
     default: `${getDefault('false')}`
 }
@@ -173,7 +173,7 @@ export let manual: flages[] = [
     , TEMPLATE
     , DIABLE_TAG
     , STATIC_UI_LOGO
-    , DISABLE_STATIC_UI
+    , BUILD_STATIC_UI
     , _JSON
     , PIPE
     , OUT

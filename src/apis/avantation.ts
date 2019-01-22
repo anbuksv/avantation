@@ -28,6 +28,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     mimeTypes: string[];
     securityHeaders: OAS.SecurityMap;
     uiLogo?: string;
+    "build-static-ui": boolean;
 
     constructor(input: Avantation.InputConfig, oclif: any) {
         this.har = input.har;
@@ -46,6 +47,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         if (input.uiLogo) {
             this.uiLogo = path.resolve(input.uiLogo)
         }
+        this["build-static-ui"] = input["build-static-ui"];
         this.run();
     }
 
@@ -336,10 +338,10 @@ export class AvantationAPI implements Avantation.InputConfig {
                 "lang": "OkHttp",
                 "source": snip.convert("java", "okhttp")
             },
-            {
+			{
                 "lang": "Swift",
                 "source": snip.convert("swift")
-            },
+			},
             {
                 "lang": "Python",
                 "source": snip.convert("python", "requests")
@@ -386,15 +388,20 @@ export class AvantationAPI implements Avantation.InputConfig {
             if (this.out.endsWith(".yaml")) {
                 this.out = this.out.replace(".yaml", ".json")
             }
-            let _path = this.out ? path.resolve(this.out) : path.join(process.cwd(), "avantation.json");
+            let _path = this.out ? path.resolve(this.out) : path.join(process.cwd(), "openapi.json");
             fs.writeFileSync(_path, JSON.stringify(this.template, null, 4));
-            this.buildStaticUI()
+            this.afterBuildComplete();
             return;
         }
 
-        fs.writeFileSync(this.out ? path.resolve(this.out) : path.join(process.cwd(), "avantation.yaml"), YAML.stringify(this.template));
-        this.buildStaticUI()
+        fs.writeFileSync(this.out ? path.resolve(this.out) : path.join(process.cwd(), "openapi.yaml"), YAML.stringify(this.template));
+        this.afterBuildComplete();
         return;
+    }
+
+    afterBuildComplete(){
+        if(this["build-static-ui"])
+            this.buildStaticUI()
     }
 
     buildStaticUI() {
