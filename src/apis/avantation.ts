@@ -6,7 +6,8 @@ import * as querystring from 'querystring'
 import { Util } from './util';
 import * as fs from 'fs';
 import * as path from 'path';
-import StaticUI from './ui'
+import StaticUI from './ui';
+import { colors as Color } from "./logger";
 
 const HTTPSnippet: any = require('httpsnippet');
 var URL: any = require('url-parse');
@@ -58,8 +59,13 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.onBuildComplete(this.template);
     }
 
+    logSucess(head:string) : void {
+        this.oclif.log(`${Color.Bright}${Color.fg.Green}✔ ${Color.Reset}${head}`);
+    }
+
     buildEntry(entry: HAR.HarEntrie) {
         let url: Avantation.URL = new URL(entry.request.url);
+        let method;
 
         if (url.host !== this.host || !url.pathname.includes(this.basePath)) {
             this.oclif.warn(`Skiping invalid url ${url.href}`);
@@ -105,21 +111,28 @@ export class AvantationAPI implements Avantation.InputConfig {
 
         switch (entry.request.method.toLocaleLowerCase()) {
             case "post":
+                method=`${Color.Bright}${Color.fg.Green}POST ${Color.Reset}`;
                 this.template.paths[path.value].post = operationItem;
                 break;
             case "get":
+                method=`${Color.Bright}${Color.fg.Blue}GET ${Color.Reset}`;
                 this.template.paths[path.value].get = operationItem;
                 break;
             case "put":
+                method=`${Color.Bright}${Color.fg.Magenta}PUT ${Color.Reset}`;
                 this.template.paths[path.value].put = operationItem;
                 break;
             case "delete":
+                method=`${Color.Bright}${Color.fg.Red}DELETE ${Color.Reset}`;
                 this.template.paths[path.value].delete = operationItem;
                 break;
             case "del":
+                method=`${Color.Bright}${Color.fg.Red}DELETE ${Color.Reset}`;
                 this.template.paths[path.value].delete = operationItem;
                 break;
         }
+        if(!this.pipe)
+            this.logSucess(method + " " + url.pathname);
     }
 
     buildPathDetails(url: Avantation.URL): Avantation.Path | undefined {
@@ -400,6 +413,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     }
 
     afterBuildComplete(){
+        this.logSucess("all taskes completed");
         if(this["build-static-ui"])
             this.buildStaticUI()
     }
