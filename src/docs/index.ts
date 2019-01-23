@@ -187,7 +187,6 @@ export let manual: flages[] = [
     , BUILD_STATIC_UI
     , STATIC_UI_LOGO
     , _JSON
-    , PIPE
     , OUT
 ];
 

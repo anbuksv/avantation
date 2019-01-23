@@ -10,7 +10,7 @@ import * as OAS from './interfaces/oas';
 import * as Docs from './docs/index';
 var URL: any = require('url-parse');
 
-let manual = process.argv.slice(2).some((cmd) => {
+/*let manual = process.argv.slice(2).some((cmd) => {
   return (cmd == "--man") ? true : false
 });
 
@@ -28,7 +28,7 @@ if (manual) {
   })
   process.exit(0);
 }
-
+*/
 
 let pipe:boolean = !process.stdout.isTTY;
 let stdin:boolean = !process.stdin.isTTY;
@@ -106,17 +106,22 @@ class Avantation extends Command {
 	    "http-snippet": flags.boolean({
     		description: Docs.HTTP_SNIPPET.description.short,
 	        default: false
-    	}),
-	    "man": flags.boolean({
+    	})
+/*	    "man": flags.boolean({
     	 	description: "print manual."
     	})
+*/
   }
 
   async run() {
     const { flags } = this.parse(Avantation);
 	const {args} = this.parse(Avantation);
+    if(!stdin && !fs.existsSync(path.resolve(args.har))){
+        this.error("Invalid file location "+ path.resolve(args.har));
+    }
     let har: HAR.Final =
-        (stdin) ? JSON.parse(stdinput)
+        (stdin)
+            ? JSON.parse(stdinput)
             : JSON.parse(fs.readFileSync(path.resolve(args.har), { encoding: 'utf-8' }));
     let template: OAS.Template;
     if (flags.template) {
