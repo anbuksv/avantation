@@ -1,0 +1,84 @@
+.TH man 1 "23 Jan 2019" "2.0.0" "avantation"
+.SH NAME
+avantation \- generate openapi3.0
+.SH SYNOPSIS
+avantation [HAR]
+.SH DESCRIPTION
+avantation is tool for generate OpenAPI3.0 from HTTP Archive format(HAR).
+.SH OPTIONS
+
+.TP
+\fB\-h\fR, \fB\-\-host\fR
+Filter the http requests from \fBHAR\fR and use it as server url in OpenAPI3.0
+.br
+\fBdefault:\fR first request url in \fBHAR\fR entry.
+
+.TP
+\fB\-b\fR, \fB\-\-base\-path
+Separate the common path as base path from \fBHTTP requests\fR
+.br
+\fBExample:\fR '/api/v1'
+.br
+\fBdefault:\fR ''
+
+.TP
+\fB\-r\fR, \fB\-\-path\-param\-regex\fR
+Converts regex matching paths into dynamic paths.
+.br
+\fBdefault:\fR [0-9]|[-$@!~%^*()_+]
+
+.TP
+\fB\-s\fR, \fB\-\-security\-headers\fR
+Map matching \fBHTTP\fR headers into security headers in request.
+.br
+\fBSyntax:\fR
+{
+"\fBheaderNameInHTTPRequest\fR": {Sequrity Scheme Object as per OAS3.0}
+}
+.br
+\fBExample:\fR
+\'{
+"\fBx-api-key\fR": {
+"name": "X-API-KEY",
+"type": "apiKey",
+"in": "headers"
+}
+}\'
+.br
+\fBdefault:\fR {}
+
+.TP
+\fB\-t\fR, \fB\-\-template\fR
+To override the default template pass the template file location.
+
+.TP
+\fB\-\-disable\-tag\fR
+Disable end ponits grouping based on route paths in \fBHAR\fR
+
+.TP
+\fB\-\-http\-snippet\fR
+Generate HTTP sample code snippet for request and append it as \'x-code-sample\' to OpenAPI path object.
+
+.TP
+\fB\-j\fR, \fB\-\-json\fR
+Wirte the output in \fBJSON\fR format.
+
+.TP
+\fB\-o\fR, \fB\-\-out\fR
+Write output result at this DEST location.
+.br
+.br
+\fBdefault:\fR \.\//openapi.yaml
+
+.TP
+\fB\-\-build\-static\-ui\fR
+Build static user interface from generated OpenAPI3.0 specification.
+
+.TP
+\fB\-\-static\-ui\-logo\fR
+To override the default logo pass the your logo file location.
+
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Anbarasan K (anbu@nullobject.io)

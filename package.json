@@ -6,6 +6,7 @@
   "bin": {
     "avantation": "./bin/run"
   },
+  "man": "./src/docs/avantation.1",
   "bugs": "https://github.com/anbuksv/avantation/issues",
   "dependencies": {
     "@oclif/command": "^1.5.6",
