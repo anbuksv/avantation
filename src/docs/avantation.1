@@ -1,10 +1,10 @@
-.TH man 1 "23 Jan 2019" "2.0.0" "avantation"
+.TH man 1 "30 Jan 2019" "2.0.0" "avantation"
 .SH NAME
-avantation \- generate openapi3.0
+avantation \- build openapi3.0 specification from HAR
 .SH SYNOPSIS
 avantation [HAR]
 .SH DESCRIPTION
-avantation is tool for generate OpenAPI3.0 from HTTP Archive format(HAR).
+avantation is tool the for generate OpenAPI3.0 from HTTP Archive format(HAR).
 .SH OPTIONS
 
 .TP
@@ -17,7 +17,7 @@ Filter the http requests from \fBHAR\fR and use it as server url in OpenAPI3.0
 \fB\-b\fR, \fB\-\-base\-path
 Separate the common path as base path from \fBHTTP requests\fR
 .br
-\fBExample:\fR '/api/v1'
+\fBExample:\fR 'api/v1'
 .br
 \fBdefault:\fR ''
 
@@ -29,7 +29,7 @@ Converts regex matching paths into dynamic paths.
 
 .TP
 \fB\-s\fR, \fB\-\-security\-headers\fR
-Map matching \fBHTTP\fR headers into security headers in request.
+Map matching \fBHTTP\fR headers into security headers on request.
 .br
 \fBSyntax:\fR
 {
