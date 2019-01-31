@@ -62,3 +62,7 @@ typings/
 
 /lib
 /tmp
+/dist
+oclif_github_release
+docs.txt
+
