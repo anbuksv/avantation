@@ -9,6 +9,7 @@ avantation is written and maintained by Anbarasan K (anbu@nullobject.io).
 - Project home page: https://avantation.in/
 - Code home page: https://github.com/anbuksv/avnatation
 - Issue tracker: https://github.com/anbuksv/avantation/issues
+- Slack Channel: https://slack.avantation.in
 
 # Install
 
