@@ -58,4 +58,6 @@ export interface InputConfig {
     disableTag: boolean;
     securityHeaders: OAS.SecurityMap;
     uiLogo?: string;
+    "build-static-ui": boolean;
+    "http-snippet": boolean;
 }

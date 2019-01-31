@@ -6,7 +6,8 @@ import * as querystring from 'querystring'
 import { Util } from './util';
 import * as fs from 'fs';
 import * as path from 'path';
-import StaticUI from './ui'
+import StaticUI from './ui';
+import { colors as Color } from "./logger";
 
 const HTTPSnippet: any = require('httpsnippet');
 var URL: any = require('url-parse');
@@ -28,6 +29,8 @@ export class AvantationAPI implements Avantation.InputConfig {
     mimeTypes: string[];
     securityHeaders: OAS.SecurityMap;
     uiLogo?: string;
+    "build-static-ui": boolean;
+    "http-snippet": boolean;
 
     constructor(input: Avantation.InputConfig, oclif: any) {
         this.har = input.har;
@@ -46,6 +49,8 @@ export class AvantationAPI implements Avantation.InputConfig {
         if (input.uiLogo) {
             this.uiLogo = path.resolve(input.uiLogo)
         }
+        this["build-static-ui"] = input["build-static-ui"];
+        this["http-snippet"] = input["http-snippet"];
         this.run();
     }
 
@@ -56,8 +61,13 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.onBuildComplete(this.template);
     }
 
+    logSucess(head:string) : void {
+        this.oclif.log(`${Color.Bright}${Color.fg.Green}✔ ${Color.Reset}${head}`);
+    }
+
     buildEntry(entry: HAR.HarEntrie) {
         let url: Avantation.URL = new URL(entry.request.url);
+        let method;
 
         if (url.host !== this.host || !url.pathname.includes(this.basePath)) {
             this.oclif.warn(`Skiping invalid url ${url.href}`);
@@ -81,17 +91,18 @@ export class AvantationAPI implements Avantation.InputConfig {
         let response: OAS.Response = this.buildResponse(entry.response);
         let security: OAS.SecurityRequirementObject = this.buildSecurity(entry.request.headers);
         let pathItemInfo: Avantation.PathItemInfo = this.buildTag(entry.comment, path.tag);
-        let sampleCodes: Avantation.Snippet[] = this.generateSampleCodes(entry.request);
         let operationItem: OAS.OperationObject = {
             security: Object.keys(security).length > 0 ? [security] : [],
             tags: [pathItemInfo.tag],
             summary: pathItemInfo.comment || pathItemInfo.tag,
             parameters: [...path.params, ...hardCodedQuery, ...queryParams],
             requestBody: requestBody,
-            responses: response,
-            "x-code-samples": sampleCodes
+            responses: response
         }
 
+        if(this["http-snippet"]) {
+            operationItem["x-code-samples"] =  this.generateSampleCodes(entry.request);
+        }
 
         if (this.disableTag)
             delete operationItem.tags;
@@ -103,25 +114,36 @@ export class AvantationAPI implements Avantation.InputConfig {
 
         switch (entry.request.method.toLocaleLowerCase()) {
             case "post":
+                method=`${Color.Bright}${Color.fg.Green}POST ${Color.Reset}`;
                 this.template.paths[path.value].post = operationItem;
                 break;
             case "get":
+                method=`${Color.Bright}${Color.fg.Blue}GET ${Color.Reset}`;
                 this.template.paths[path.value].get = operationItem;
                 break;
             case "put":
+                method=`${Color.Bright}${Color.fg.Magenta}PUT ${Color.Reset}`;
                 this.template.paths[path.value].put = operationItem;
                 break;
             case "delete":
+                method=`${Color.Bright}${Color.fg.Red}DEL ${Color.Reset}`;
                 this.template.paths[path.value].delete = operationItem;
                 break;
             case "del":
+                method=`${Color.Bright}${Color.fg.Red}DEL ${Color.Reset}`;
                 this.template.paths[path.value].delete = operationItem;
                 break;
         }
+        if(!this.pipe)
+            this.logSucess(method + "\t" + url.pathname);
     }
 
     buildPathDetails(url: Avantation.URL): Avantation.Path | undefined {
-        let basePathArr = url.pathname.split(this.basePath);
+        let basePathArr =
+            ( this.basePath === "")
+                ? ["", url.pathname]
+                :  url.pathname.split(this.basePath);
+
         if (basePathArr.length !== 2) {
             this.oclif.warn("Skiping following invalid path API:" + JSON.stringify({
                 host: url.host,
@@ -130,6 +152,7 @@ export class AvantationAPI implements Avantation.InputConfig {
             }, null, 4));
             return undefined;
         }
+
         let pathArr = basePathArr[1].split("/");
         let pathTag: string | undefined = undefined;
         let that = this;
@@ -336,10 +359,10 @@ export class AvantationAPI implements Avantation.InputConfig {
                 "lang": "OkHttp",
                 "source": snip.convert("java", "okhttp")
             },
-            {
+			{
                 "lang": "Swift",
                 "source": snip.convert("swift")
-            },
+			},
             {
                 "lang": "Python",
                 "source": snip.convert("python", "requests")
@@ -386,15 +409,21 @@ export class AvantationAPI implements Avantation.InputConfig {
             if (this.out.endsWith(".yaml")) {
                 this.out = this.out.replace(".yaml", ".json")
             }
-            let _path = this.out ? path.resolve(this.out) : path.join(process.cwd(), "avantation.json");
+            let _path = this.out ? path.resolve(this.out) : path.join(process.cwd(), "openapi.json");
             fs.writeFileSync(_path, JSON.stringify(this.template, null, 4));
-            this.buildStaticUI()
+            this.afterBuildComplete();
             return;
         }
 
-        fs.writeFileSync(this.out ? path.resolve(this.out) : path.join(process.cwd(), "avantation.yaml"), YAML.stringify(this.template));
-        this.buildStaticUI()
+        fs.writeFileSync(this.out ? path.resolve(this.out) : path.join(process.cwd(), "openapi.yaml"), YAML.stringify(this.template));
+        this.afterBuildComplete();
         return;
+    }
+
+    afterBuildComplete(){
+        this.logSucess("all taskes completed");
+        if(this["build-static-ui"])
+            this.buildStaticUI()
     }
 
     buildStaticUI() {
