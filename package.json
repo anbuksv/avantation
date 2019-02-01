@@ -1,12 +1,12 @@
 {
   "name": "avantation",
   "description": "Designed for programmers to generate documentation for large scal REST API's.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Anbarasan K <anbu@nullobject.io> (www.avantation.in)",
   "bin": {
     "avantation": "./bin/run"
   },
-  "man": "./src/docs/avantation.1",
+  "man": "./man/avantation.1",
   "bugs": "https://github.com/anbuksv/avantation/issues",
   "dependencies": {
     "@oclif/command": "^1.5.6",
@@ -30,10 +30,7 @@
   "engines": {
     "node": ">=10.14.2"
   },
-  "files": [
-    "/bin",
-    "/lib"
-  ],
+  "files": ["/bin", "/lib", "/man"],
   "homepage": "https://github.com/anbuksv/avantation",
   "keywords": [
     "oclif",
