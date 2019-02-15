@@ -1,55 +1,51 @@
-const widdershins: any = require("widdershins")
-const shins: any = require("shins")
+const widdershins: any = require('widdershins');
+const shins: any = require('shins');
 import * as OAS from '../interfaces/oas';
-import * as fs from 'fs'
+import * as fs from 'fs';
 
 interface options {
-    host: string,
-    basePath: string,
-    api: OAS.Template,
-    outPath: string,
-    logo?: string,
-    httpSchema?: string
+    host: string;
+    basePath: string;
+    api: OAS.Template;
+    outPath: string;
+    logo?: string;
+    httpSchema?: string;
 }
 
-export default function (_options: options) {
+export default function(_options: options) {
     let { host, basePath, api, outPath, logo, httpSchema } = _options;
-    httpSchema = httpSchema ? httpSchema : "https"
+    httpSchema = httpSchema ? httpSchema : 'https';
     const languageMap: any = {
-        "shell": "Shell",
+        shell: 'Shell',
         // "http": "HTTP",
-        "javascript": "JavaScript",
-        "javascript--nodejs": "Node.js",
-        "ruby": "Ruby",
-        "python": "Python",
-        "java": "Java",
-        "go": "Go"
+        javascript: 'JavaScript',
+        'javascript--nodejs': 'Node.js',
+        ruby: 'Ruby',
+        python: 'Python',
+        java: 'Java',
+        go: 'Go'
     };
 
     api.servers = [
         {
             url: `${httpSchema}://${host}/${basePath}`
         }
-    ]
+    ];
 
     Object.keys(api.paths).forEach((path: any) => {
-        if (api.paths[path].get !== undefined)
-            delete api.paths[path].get!["x-code-samples"]
+        if (api.paths[path].get !== undefined) delete api.paths[path].get!['x-code-samples'];
 
-        if (api.paths[path].post !== undefined)
-            delete api.paths[path].post!["x-code-samples"]
+        if (api.paths[path].post !== undefined) delete api.paths[path].post!['x-code-samples'];
 
-        if (api.paths[path].put !== undefined)
-            delete api.paths[path].put!["x-code-samples"]
+        if (api.paths[path].put !== undefined) delete api.paths[path].put!['x-code-samples'];
 
-        if (api.paths[path].delete !== undefined)
-            delete api.paths[path].delete!["x-code-samples"]
-    })
+        if (api.paths[path].delete !== undefined) delete api.paths[path].delete!['x-code-samples'];
+    });
 
     let options: any = {
         codeSamples: true,
         httpsnippet: false,
-        theme: "vs2015" || "dracula",
+        theme: 'vs2015' || 'dracula',
         search: true,
         discovery: false,
         shallowSchemas: false,
@@ -59,12 +55,11 @@ export default function (_options: options) {
         sample: true
     };
 
-    Object.getOwnPropertyNames(languageMap).forEach((lang) => {
+    Object.getOwnPropertyNames(languageMap).forEach(lang => {
         let obj: any = {};
         obj[lang] = languageMap[lang];
         options.language_tabs.push(obj);
     });
-
 
     // Shin options
     let shinOptions: any = {
@@ -77,7 +72,7 @@ export default function (_options: options) {
         shinOptions.logo = logo;
     }
 
-    widdershins.convert(api, options, function (err: any, markdown: string) {
+    widdershins.convert(api, options, function(err: any, markdown: string) {
         if (err) {
             console.log(err);
             return;
@@ -88,9 +83,7 @@ export default function (_options: options) {
                 console.log(err);
                 return;
             }
-            fs.writeFileSync(outPath, html, "utf8");
-        })
-
-    })
-
+            fs.writeFileSync(outPath, html, 'utf8');
+        });
+    });
 }

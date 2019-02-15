@@ -1,6 +1,6 @@
 import * as Avantation from './avantation';
 
-import * as OASEnum from '../enums/oas'
+import * as OASEnum from '../enums/oas';
 
 export interface openapi {
     version: OASEnum.openapi;
@@ -21,11 +21,11 @@ export interface ServerObject {
     description?: string;
     variables?: {
         [name: string]: ServerVariableObject;
-    }
+    };
 }
 
 export interface PathsObject {
-    [path: string]: PathItemObject
+    [path: string]: PathItemObject;
 }
 
 export interface ComponentsObject {
@@ -41,7 +41,7 @@ export interface ComponentsObject {
 }
 
 export interface SecurityRequirementObject {
-    [name: string]: string[]
+    [name: string]: string[];
 }
 
 export interface TagObject {
@@ -69,7 +69,7 @@ export interface ParameterObject {
     example?: any;
     examples?: {
         [example: string]: ExampleObject | ReferenceObject;
-    }
+    };
 }
 
 export interface ReponsesObject {
@@ -113,7 +113,7 @@ export interface PathItemObject {
     patch?: OperationObject;
     trace?: OperationObject;
     servers?: ServerObject[];
-    parameters?: (ParameterObject | ReferenceObject)[]
+    parameters?: (ParameterObject | ReferenceObject)[];
 }
 
 export interface OperationObject {
@@ -129,7 +129,7 @@ export interface OperationObject {
     deprecated?: boolean;
     security?: SecurityRequirementObject[];
     servers?: ServerObject[];
-    ["x-code-samples"]?: Avantation.Snippet[];
+    ['x-code-samples']?: Avantation.Snippet[];
 }
 
 export interface ExternalDocumentationObject {
@@ -145,7 +145,7 @@ export interface ExampleObject {
 }
 
 export interface ContentObject {
-    [key: string]: MediaTypeObject
+    [key: string]: MediaTypeObject;
 }
 
 export interface RequestBodyObject {
@@ -194,12 +194,12 @@ export interface SecurityMap {
 }
 
 export interface Template {
-    openapi: openapi,
-    info: InfoObject,
-    servers: ServerObject[],
-    paths: PathsObject,
-    components?: ComponentsObject,
-    security?: SecurityRequirementObject[],
-    tags?: TagObject[],
-    externalDocs?: ExternalDocumentationObject
+    openapi: openapi;
+    info: InfoObject;
+    servers: ServerObject[];
+    paths: PathsObject;
+    components?: ComponentsObject;
+    security?: SecurityRequirementObject[];
+    tags?: TagObject[];
+    externalDocs?: ExternalDocumentationObject;
 }

@@ -32,9 +32,9 @@ export interface URL {
 }
 
 export interface Path {
-    value: string,
-    params: OAS.ParameterObject[],
-    tag: string | undefined
+    value: string;
+    params: OAS.ParameterObject[];
+    tag: string | undefined;
 }
 
 export interface PathItemInfo {
@@ -43,7 +43,7 @@ export interface PathItemInfo {
 }
 
 export interface build {
-    paths: OAS.PathsObject
+    paths: OAS.PathsObject;
 }
 
 export interface InputConfig {
@@ -58,6 +58,6 @@ export interface InputConfig {
     disableTag: boolean;
     securityHeaders: OAS.SecurityMap;
     uiLogo?: string;
-    "build-static-ui": boolean;
-    "http-snippet": boolean;
+    'build-static-ui': boolean;
+    'http-snippet': boolean;
 }
