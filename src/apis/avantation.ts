@@ -302,6 +302,10 @@ export class AvantationAPI implements Avantation.InputConfig {
 
         if (!res.content.text || !res.content.mimeType.includes('application/json')) return response;
 
+        if (res.content.encoding && res.content.encoding == 'base64') {
+            res.content.text = Buffer.from(res.content.text, 'base64').toString();
+        }
+
         let responseData = JSON.parse(res.content.text);
         let responObject: OAS.ReponsesObject = {
             description: res.statusText,
