@@ -62,7 +62,7 @@ export interface PostData {
 export interface HarResponseContent {
     size: string;
     mimeType: string;
-    text: string
+    text: string;
     compression?: string;
 }
 
