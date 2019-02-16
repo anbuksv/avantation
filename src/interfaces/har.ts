@@ -64,6 +64,7 @@ export interface HarResponseContent {
     mimeType: string;
     text: string;
     compression?: string;
+    encoding?: string;
 }
 
 export interface Final {
