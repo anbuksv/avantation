@@ -31,7 +31,7 @@ avantation is tool the for generate OpenAPI3.0 from HTTP Archive format(HAR).
 avantation is written and maintained by Anbarasan K (anbuksv@gmail.com).
 
 - Project home page: https://www.avantation.in/
-- Code home page: https://github.com/anbuksv/avnatation
+- Code home page: https://github.com/anbuksv/avantation
 - Issue tracker: https://github.com/anbuksv/avantation/issues
 - Slack Channel: https://slack.avantation.in
 
@@ -39,7 +39,7 @@ avantation is written and maintained by Anbarasan K (anbuksv@gmail.com).
 Bug reports and code and documentation patches are welcome.
 ## Install
 
-Direct downloads are available through the [releases page](https://github.com/anbuksv/avantation/releases/latest).
+Direct downloads are available through the [release page](https://github.com/anbuksv/avantation/releases/latest).
 
 If you have Node installed on your computer just run npm install
 
