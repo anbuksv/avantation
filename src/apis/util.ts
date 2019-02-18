@@ -41,6 +41,20 @@ export namespace Util {
         return schema;
     }
 
+    export function arrayMaxDepth(input: any, depthLimit: number | undefined) {
+        input != null &&
+            Object.keys(input).forEach(function(key: any) {
+                if (input[key] instanceof Array) {
+                    input[key] = input[key].slice(0, depthLimit || 3);
+                    return;
+                }
+
+                if (typeof input[key] == 'object' && input[key] !== null) {
+                    arrayMaxDepth(input[key], depthLimit);
+                }
+            });
+    }
+
     export function buildWildCardRegex(wildCardString: string): RegExp {
         return new RegExp(`^${wildCardString.split('*').join('.*')}`);
     }

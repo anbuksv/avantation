@@ -307,6 +307,11 @@ export class AvantationAPI implements Avantation.InputConfig {
         }
 
         let responseData = JSON.parse(res.content.text);
+        if (responseData instanceof Array) {
+            responseData = responseData.slice(0, 3);
+        } else {
+            Util.arrayMaxDepth(responseData, 3);
+        }
         let responObject: OAS.ReponsesObject = {
             description: res.statusText,
             content: {
