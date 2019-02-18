@@ -3,17 +3,7 @@ let defaultTemplate: any = {
     info: {
         version: '1.0',
         title: 'Avantation REST Template',
-        contact: {
-            name: 'Avantation',
-            url: 'https://www.avantation.in/communication/',
-            email: 'anbu@nullobject.io'
-        },
-        license: {
-            name: 'Avantation',
-            url: 'https://www.avantation.in/license/'
-        },
-        termsOfService: 'https://www.avantation.in/terms/',
-        description: '# Developer Documentation'
+        description: 'TODO: Add Description'
     },
     servers: [
         {
@@ -24,7 +14,7 @@ let defaultTemplate: any = {
                     default: 'http'
                 },
                 basePath: {
-                    default: '{basePath}'
+                    default: ''
                 }
             }
         }
