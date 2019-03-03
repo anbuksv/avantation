@@ -4,9 +4,10 @@
 🚧 Work in Progress! 🚧
 </p>
 <p align="center">
-  <a href="https://npmjs.org/package/avantation">
+<!--  <a href="https://npmjs.org/package/avantation">
     <img alt="Beta" src="https://img.shields.io/badge/-🚀beta-important.svg?style=flat-square)">
   </a>
+-->
   <a href="https://npmjs.org/package/avantation">
     <img alt="Version" src="https://img.shields.io/npm/v/avantation.svg?style=flat-square">
   </a>
