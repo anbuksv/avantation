@@ -14,7 +14,7 @@
             - "http"
           default: "http"
         basePath: 
-          default: ""
+          default: "api/v1"
   tags: 
     - 
       name: "Auth"
@@ -34,19 +34,13 @@
         type: "apiKey"
         in: "header"
   paths: 
-    /api/{id}/login: 
+    /login: 
       post: 
         security: []
         tags: 
           - "Auth"
         summary: "Login "
-        parameters: 
-          - 
-            in: "path"
-            name: "id"
-            schema: 
-              type: "string"
-            required: true
+        parameters: []
         requestBody: 
           required: true
           content: 
@@ -82,7 +76,7 @@
               application/json: 
                 example: 
                   message: "Sorry unable to perform operation."
-    /api/{id}/todos: 
+    /todos: 
       post: 
         security: 
           - 
@@ -90,13 +84,7 @@
         tags: 
           - "Todo"
         summary: "Create new todo "
-        parameters: 
-          - 
-            in: "path"
-            name: "id"
-            schema: 
-              type: "string"
-            required: true
+        parameters: []
         requestBody: 
           required: true
           content: 
@@ -144,12 +132,6 @@
         summary: "(QUERY) Retrieve Todo based on Id  "
         parameters: 
           - 
-            in: "path"
-            name: "id"
-            schema: 
-              type: "string"
-            required: true
-          - 
             in: "query"
             name: "id_like"
             schema: 
@@ -182,7 +164,7 @@
               application/json: 
                 example: 
                   message: "Sorry unable to perform operation."
-    /api/{id}/todos/{id1}: 
+    /todos/{id}: 
       get: 
         security: 
           - 
@@ -194,12 +176,6 @@
           - 
             in: "path"
             name: "id"
-            schema: 
-              type: "string"
-            required: true
-          - 
-            in: "path"
-            name: "id1"
             schema: 
               type: "string"
             required: true
@@ -238,12 +214,6 @@
           - 
             in: "path"
             name: "id"
-            schema: 
-              type: "string"
-            required: true
-          - 
-            in: "path"
-            name: "id1"
             schema: 
               type: "string"
             required: true
@@ -296,12 +266,6 @@
           - 
             in: "path"
             name: "id"
-            schema: 
-              type: "string"
-            required: true
-          - 
-            in: "path"
-            name: "id1"
             schema: 
               type: "string"
             required: true

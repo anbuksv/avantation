@@ -14,7 +14,7 @@ let defaultTemplate: any = {
                     default: 'http'
                 },
                 basePath: {
-                    default: ''
+                    default: '{basePath}'
                 }
             }
         }

@@ -392,7 +392,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         let that = this;
         this.template.servers.forEach(function(server: OAS.ServerObject) {
             server.url = server.url.replace('{host}', that.host);
-            if (server.variables && server.variables.basePath && server.variables.basePath.default) {
+            if (server.variables && server.variables.basePath && typeof server.variables.basePath == 'object') {
                 server.variables.basePath.default = server.variables.basePath.default.replace(
                     '{basePath}',
                     that.basePath
