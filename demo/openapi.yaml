@@ -1,0 +1,322 @@
+---
+  openapi: "3.0.0"
+  info: 
+    version: "1.0"
+    title: "Avantation REST Template"
+    description: "TODO: Add Description"
+  servers: 
+    - 
+      url: "{scheme}://demo.avantation.in/{basePath}"
+      variables: 
+        scheme: 
+          enum: 
+            - "https"
+            - "http"
+          default: "http"
+        basePath: 
+          default: ""
+  tags: 
+    - 
+      name: "Auth"
+    - 
+      name: "Todo"
+  components: 
+    schemas: 
+      ErrorModel: 
+        type: "object"
+        properties: 
+          code: 
+            type: "string"
+    securitySchemes: 
+      JWT: 
+        description: "You can create a JSON Web Token (JWT) during auth.\nUsage format: `Bearer <JWT>`\n"
+        name: "Authorization"
+        type: "apiKey"
+        in: "header"
+  paths: 
+    /api/{id}/login: 
+      post: 
+        security: []
+        tags: 
+          - "Auth"
+        summary: "Login "
+        parameters: 
+          - 
+            in: "path"
+            name: "id"
+            schema: 
+              type: "string"
+            required: true
+        requestBody: 
+          required: true
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+                properties: 
+                  email: 
+                    type: "string"
+                  password: 
+                    type: "string"
+              example: 
+                email: "demo@avantation.in"
+                password: "EC84D5D857ABE"
+        responses: 
+          200: 
+            description: "OK"
+            content: 
+              application/json: 
+                schema: 
+                  type: "object"
+                  properties: 
+                    message: 
+                      type: "string"
+                    token: 
+                      type: "string"
+                example: 
+                  message: "Welcome to demo of todo application."
+                  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AYXZhbnRhdGlvbi5pbiIsImlhdCI6MTU1MTYyMDQ0Mn0.E6SPoRRF3lbPtyzkcLdwSQqVCMUM72-kGOdLoTlw2L4"
+          default: 
+            description: "Unexpected error"
+            content: 
+              application/json: 
+                example: 
+                  message: "Sorry unable to perform operation."
+    /api/{id}/todos: 
+      post: 
+        security: 
+          - 
+            JWT: []
+        tags: 
+          - "Todo"
+        summary: "Create new todo "
+        parameters: 
+          - 
+            in: "path"
+            name: "id"
+            schema: 
+              type: "string"
+            required: true
+        requestBody: 
+          required: true
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+                properties: 
+                  todo: 
+                    type: "string"
+                  completed: 
+                    type: "boolean"
+              example: 
+                todo: "Hello Wolrd"
+                completed: false
+        responses: 
+          201: 
+            description: "Created"
+            content: 
+              application/json: 
+                schema: 
+                  type: "object"
+                  properties: 
+                    todo: 
+                      type: "string"
+                    completed: 
+                      type: "boolean"
+                    id: 
+                      type: "number"
+                example: 
+                  todo: "Hello Wolrd"
+                  completed: false
+                  id: 1
+          default: 
+            description: "Unexpected error"
+            content: 
+              application/json: 
+                example: 
+                  message: "Sorry unable to perform operation."
+      get: 
+        security: 
+          - 
+            JWT: []
+        tags: 
+          - "Todo"
+        summary: "(QUERY) Retrieve Todo based on Id  "
+        parameters: 
+          - 
+            in: "path"
+            name: "id"
+            schema: 
+              type: "string"
+            required: true
+          - 
+            in: "query"
+            name: "id_like"
+            schema: 
+              type: "string"
+            required: true
+        responses: 
+          200: 
+            description: "OK"
+            content: 
+              application/json: 
+                schema: 
+                  type: "array"
+                  items: 
+                    type: "object"
+                    properties: 
+                      todo: 
+                        type: "string"
+                      completed: 
+                        type: "boolean"
+                      id: 
+                        type: "number"
+                example: 
+                  - 
+                    todo: "Hello Wolrd"
+                    completed: false
+                    id: 1
+          default: 
+            description: "Unexpected error"
+            content: 
+              application/json: 
+                example: 
+                  message: "Sorry unable to perform operation."
+    /api/{id}/todos/{id1}: 
+      get: 
+        security: 
+          - 
+            JWT: []
+        tags: 
+          - "Todo"
+        summary: "(PATH) Retrieve Todo based on Id  "
+        parameters: 
+          - 
+            in: "path"
+            name: "id"
+            schema: 
+              type: "string"
+            required: true
+          - 
+            in: "path"
+            name: "id1"
+            schema: 
+              type: "string"
+            required: true
+        responses: 
+          200: 
+            description: "OK"
+            content: 
+              application/json: 
+                schema: 
+                  type: "object"
+                  properties: 
+                    todo: 
+                      type: "string"
+                    completed: 
+                      type: "boolean"
+                    id: 
+                      type: "number"
+                example: 
+                  todo: "Hello Wolrd"
+                  completed: false
+                  id: 1
+          default: 
+            description: "Unexpected error"
+            content: 
+              application/json: 
+                example: 
+                  message: "Sorry unable to perform operation."
+      put: 
+        security: 
+          - 
+            JWT: []
+        tags: 
+          - "Todo"
+        summary: "Update Todo Based on Id "
+        parameters: 
+          - 
+            in: "path"
+            name: "id"
+            schema: 
+              type: "string"
+            required: true
+          - 
+            in: "path"
+            name: "id1"
+            schema: 
+              type: "string"
+            required: true
+        requestBody: 
+          required: true
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+                properties: 
+                  todo: 
+                    type: "string"
+                  completed: 
+                    type: "boolean"
+              example: 
+                todo: "Hello world"
+                completed: true
+        responses: 
+          200: 
+            description: "OK"
+            content: 
+              application/json: 
+                schema: 
+                  type: "object"
+                  properties: 
+                    todo: 
+                      type: "string"
+                    completed: 
+                      type: "boolean"
+                    id: 
+                      type: "number"
+                example: 
+                  todo: "Hello world"
+                  completed: true
+                  id: 1
+          default: 
+            description: "Unexpected error"
+            content: 
+              application/json: 
+                example: 
+                  message: "Sorry unable to perform operation."
+      delete: 
+        security: 
+          - 
+            JWT: []
+        tags: 
+          - "Todo"
+        summary: "Delete Todo based on Id "
+        parameters: 
+          - 
+            in: "path"
+            name: "id"
+            schema: 
+              type: "string"
+            required: true
+          - 
+            in: "path"
+            name: "id1"
+            schema: 
+              type: "string"
+            required: true
+        responses: 
+          200: 
+            description: "OK"
+            content: 
+              application/json: 
+                schema: 
+                  type: "object"
+                  properties: {}
+                example: {}
+          default: 
+            description: "Unexpected error"
+            content: 
+              application/json: 
+                example: 
+                  message: "Sorry unable to perform operation."
