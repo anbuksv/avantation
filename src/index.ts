@@ -7,28 +7,7 @@ import * as path from 'path';
 import * as HAR from './interfaces/har';
 import * as AvantationInterface from './interfaces/avantation';
 import * as OAS from './interfaces/oas';
-import * as Docs from './docs/index';
 var URL: any = require('url-parse');
-
-/*let manual = process.argv.slice(2).some((cmd) => {
-  return (cmd == "--man") ? true : false
-});
-
-if (manual) {
-  console.log(Docs.INFO);
-  Docs.manual.forEach((_flag) => {
-    let flag = (_flag.short) ? `-${_flag.short}, --${_flag.long}` : `--${_flag.long}`;
-    flag = flag + ((_flag.required) ? " (required)" : "");
-    console.log(`${Color.Bright}${Color.fg.Yellow} ${flag} ${Color.Reset}`)
-    console.log(_flag.description.long || `\t${_flag.description.short}`)
-    if (_flag.default) {
-      console.log(_flag.default)
-    }
-    console.log("\n");
-  })
-  process.exit(0);
-}
-*/
 
 let pipe: boolean = !process.stdout.isTTY;
 let stdin: boolean = !process.stdin.isTTY;
@@ -47,7 +26,7 @@ if (stdin) {
 }
 
 class Avantation extends Command {
-    static description = Docs.SHORT_DESCRIPTION;
+    static description = 'Build OpenAPI specification from HAR.';
     static args = [
         {
             name: 'har',
@@ -58,58 +37,53 @@ class Avantation extends Command {
 
     static flags = {
         host: flags.string({
-            char: Docs.HOST.short,
-            description: Docs.HOST.description.short,
-            default: Docs.HOST.default,
+            char: 'h',
+            description: 'Filter the http request from HAR and use it as server url in output.',
             required: false
         }),
         'base-path': flags.string({
-            char: Docs.BASE_PATH.short,
-            description: Docs.BASE_PATH.description.short,
-            default: Docs.BASE_PATH.default,
+            char: 'b',
+            description: "Separate the common path as base path from HTTP requests. Example:['api/v1']",
             required: false
         }),
         template: flags.string({
-            char: Docs.TEMPLATE.short,
-            description: Docs.TEMPLATE.description.short
+            char: 't',
+            description: 'To override the default template pass the your template file location.'
         }),
         out: flags.string({
-            char: Docs.OUT.short,
-            description: Docs.OUT.description.short,
+            char: 'o',
+            description: 'Write output result at this DEST location.',
             default: './openapi.yaml'
         }),
         'path-param-regex': flags.string({
-            char: Docs.PATH_REGEX.short,
-            description: Docs.PATH_REGEX.description.short,
+            char: 'r',
+            description: 'Convert Regex matching params into dynamic path ',
             default: '[0-9]|[-$@!~%^*()_+]'
         }),
         json: flags.boolean({
-            char: Docs._JSON.short,
-            description: Docs._JSON.description.short
+            char: 'j',
+            description: 'Write output result in JSON format.'
         }),
         'disable-tag': flags.boolean({
-            description: Docs.DIABLE_TAG.description.short
+            description: 'Diable end points grouping based on route path in HAR'
         }),
         'security-headers': flags.string({
-            char: Docs.SECURITY_HEADERS.short,
-            description: Docs.SECURITY_HEADERS.description.short,
+            char: 's',
+            description: 'Map matching HTTP headers into security headers on request.',
             default: '{}'
         }),
         'build-static-ui': flags.boolean({
-            description: Docs.BUILD_STATIC_UI.description.short,
+            description: 'Build the static user interface from generated OpenAPI3.0 specification.',
             default: false
         }),
         'static-ui-logo': flags.string({
-            description: Docs.STATIC_UI_LOGO.description.short
+            description: 'Static-UI logo file location'
         }),
         'http-snippet': flags.boolean({
-            description: Docs.HTTP_SNIPPET.description.short,
+            description:
+                "Generate HTTP smaple code snippet for request and appedn it as 'x-code-sample' to OpenAPI path object.",
             default: false
         })
-        /*	    "man": flags.boolean({
-    	 	description: "print manual."
-    	})
-*/
     };
 
     async run() {
@@ -148,6 +122,7 @@ class Avantation extends Command {
             uiLogo: flags['static-ui-logo'],
             'build-static-ui': flags['build-static-ui'],
             'http-snippet': flags['http-snippet']
+            //	    maxDepth: flags['array-max-depth']
         };
 
         new AvantationAPI(input, this);
