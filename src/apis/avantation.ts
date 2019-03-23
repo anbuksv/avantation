@@ -361,7 +361,7 @@ export class AvantationAPI implements Avantation.InputConfig {
                 source: snip.convert('javascript', 'jquery')
             },
             {
-                lang: 'OkHttp',
+                lang: 'OKHttp',
                 source: snip.convert('java', 'okhttp')
             },
             {
@@ -373,7 +373,7 @@ export class AvantationAPI implements Avantation.InputConfig {
                 source: snip.convert('python', 'requests')
             },
             {
-                lang: 'NodeJs',
+                lang: 'NodeJS',
                 source: snip.convert('node', 'native')
             }
         ];
