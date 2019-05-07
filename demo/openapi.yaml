@@ -84,7 +84,7 @@
             lang: "JavaScript"
             source: "var settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://demo.avantation.in/api/v1/login\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"content-type\": \"application/json\"\n  },\n  \"processData\": false,\n  \"data\": \"{\\n\\t\\\"email\\\":\\\"demo@avantation.in\\\",\\n\\t\\\"password\\\": \\\"EC84D5D857ABE\\\"\\n}\"\n}\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});"
           -
-            lang: "OkHttp"
+            lang: "OKHttp"
             source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\n\\t\\\"email\\\":\\\"demo@avantation.in\\\",\\n\\t\\\"password\\\": \\\"EC84D5D857ABE\\\"\\n}\");\nRequest request = new Request.Builder()\n  .url(\"https://demo.avantation.in/api/v1/login\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
           -
             lang: "Swift"
@@ -93,7 +93,7 @@
             lang: "Python"
             source: "import requests\n\nurl = \"https://demo.avantation.in/api/v1/login\"\n\npayload = \"{\\n\\t\\\"email\\\":\\\"demo@avantation.in\\\",\\n\\t\\\"password\\\": \\\"EC84D5D857ABE\\\"\\n}\"\nheaders = {'content-type': 'application/json'}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)"
           -
-            lang: "NodeJs"
+            lang: "NodeJS"
             source: "var http = require(\"https\");\n\nvar options = {\n  \"method\": \"POST\",\n  \"hostname\": \"demo.avantation.in\",\n  \"port\": null,\n  \"path\": \"/api/v1/login\",\n  \"headers\": {\n    \"content-type\": \"application/json\"\n  }\n};\n\nvar req = http.request(options, function (res) {\n  var chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    var body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(JSON.stringify({ email: 'demo@avantation.in', password: 'EC84D5D857ABE' }));\nreq.end();"
     /todos:
       post:
@@ -150,7 +150,7 @@
             lang: "JavaScript"
             source: "var settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://demo.avantation.in/api/v1/todos\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  },\n  \"processData\": false,\n  \"data\": \"{\\n\\t\\\"todo\\\":\\\"Hello Wolrd\\\",\\n\\t\\\"completed\\\": false\\n}\"\n}\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});"
           -
-            lang: "OkHttp"
+            lang: "OKHttp"
             source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\n\\t\\\"todo\\\":\\\"Hello Wolrd\\\",\\n\\t\\\"completed\\\": false\\n}\");\nRequest request = new Request.Builder()\n  .url(\"https://demo.avantation.in/api/v1/todos\")\n  .post(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
           -
             lang: "Swift"
@@ -159,7 +159,7 @@
             lang: "Python"
             source: "import requests\n\nurl = \"https://demo.avantation.in/api/v1/todos\"\n\npayload = \"{\\n\\t\\\"todo\\\":\\\"Hello Wolrd\\\",\\n\\t\\\"completed\\\": false\\n}\"\nheaders = {\n    'content-type': \"application/json\",\n    'authorization': \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n    }\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)"
           -
-            lang: "NodeJs"
+            lang: "NodeJS"
             source: "var http = require(\"https\");\n\nvar options = {\n  \"method\": \"POST\",\n  \"hostname\": \"demo.avantation.in\",\n  \"port\": null,\n  \"path\": \"/api/v1/todos\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n};\n\nvar req = http.request(options, function (res) {\n  var chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    var body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(JSON.stringify({ todo: 'Hello Wolrd', completed: false }));\nreq.end();"
       get:
         security:
@@ -210,7 +210,7 @@
             lang: "JavaScript"
             source: "var settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://demo.avantation.in/api/v1/todos?id_like=1\",\n  \"method\": \"GET\",\n  \"headers\": {\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n}\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});"
           -
-            lang: "OkHttp"
+            lang: "OKHttp"
             source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://demo.avantation.in/api/v1/todos?id_like=1\")\n  .get()\n  .addHeader(\"authorization\", \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
           -
             lang: "Swift"
@@ -219,7 +219,7 @@
             lang: "Python"
             source: "import requests\n\nurl = \"https://demo.avantation.in/api/v1/todos\"\n\npayload = \"\"\nheaders = {'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU'}\n\nresponse = requests.request(\"GET\", url, data=payload, headers=headers)\n\nprint(response.text)"
           -
-            lang: "NodeJs"
+            lang: "NodeJS"
             source: "var http = require(\"https\");\n\nvar options = {\n  \"method\": \"GET\",\n  \"hostname\": \"demo.avantation.in\",\n  \"port\": null,\n  \"path\": \"/api/v1/todos?id_like=1\",\n  \"headers\": {\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n};\n\nvar req = http.request(options, function (res) {\n  var chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    var body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.end();"
     /todos/{id}:
       get:
@@ -268,7 +268,7 @@
             lang: "JavaScript"
             source: "var settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://demo.avantation.in/api/v1/todos/1\",\n  \"method\": \"GET\",\n  \"headers\": {\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n}\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});"
           -
-            lang: "OkHttp"
+            lang: "OKHttp"
             source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://demo.avantation.in/api/v1/todos/1\")\n  .get()\n  .addHeader(\"authorization\", \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
           -
             lang: "Swift"
@@ -277,7 +277,7 @@
             lang: "Python"
             source: "import requests\n\nurl = \"https://demo.avantation.in/api/v1/todos/1\"\n\npayload = \"\"\nheaders = {'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU'}\n\nresponse = requests.request(\"GET\", url, data=payload, headers=headers)\n\nprint(response.text)"
           -
-            lang: "NodeJs"
+            lang: "NodeJS"
             source: "var http = require(\"https\");\n\nvar options = {\n  \"method\": \"GET\",\n  \"hostname\": \"demo.avantation.in\",\n  \"port\": null,\n  \"path\": \"/api/v1/todos/1\",\n  \"headers\": {\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n};\n\nvar req = http.request(options, function (res) {\n  var chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    var body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.end();"
       put:
         security:
@@ -339,7 +339,7 @@
             lang: "JavaScript"
             source: "var settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://demo.avantation.in/api/v1/todos/1\",\n  \"method\": \"PUT\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  },\n  \"processData\": false,\n  \"data\": \"{\\n\\t\\\"todo\\\": \\\"Hello world\\\",\\n\\t\\\"completed\\\": true\\n}\"\n}\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});"
           -
-            lang: "OkHttp"
+            lang: "OKHttp"
             source: "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\n\\t\\\"todo\\\": \\\"Hello world\\\",\\n\\t\\\"completed\\\": true\\n}\");\nRequest request = new Request.Builder()\n  .url(\"https://demo.avantation.in/api/v1/todos/1\")\n  .put(body)\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
           -
             lang: "Swift"
@@ -348,7 +348,7 @@
             lang: "Python"
             source: "import requests\n\nurl = \"https://demo.avantation.in/api/v1/todos/1\"\n\npayload = \"{\\n\\t\\\"todo\\\": \\\"Hello world\\\",\\n\\t\\\"completed\\\": true\\n}\"\nheaders = {\n    'content-type': \"application/json\",\n    'authorization': \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n    }\n\nresponse = requests.request(\"PUT\", url, data=payload, headers=headers)\n\nprint(response.text)"
           -
-            lang: "NodeJs"
+            lang: "NodeJS"
             source: "var http = require(\"https\");\n\nvar options = {\n  \"method\": \"PUT\",\n  \"hostname\": \"demo.avantation.in\",\n  \"port\": null,\n  \"path\": \"/api/v1/todos/1\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n};\n\nvar req = http.request(options, function (res) {\n  var chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    var body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(JSON.stringify({ todo: 'Hello world', completed: true }));\nreq.end();"
       delete:
         security:
@@ -387,7 +387,7 @@
             lang: "JavaScript"
             source: "var settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://demo.avantation.in/api/v1/todos/1\",\n  \"method\": \"DELETE\",\n  \"headers\": {\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n}\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});"
           -
-            lang: "OkHttp"
+            lang: "OKHttp"
             source: "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://demo.avantation.in/api/v1/todos/1\")\n  .delete(null)\n  .addHeader(\"authorization\", \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
           -
             lang: "Swift"
@@ -396,5 +396,5 @@
             lang: "Python"
             source: "import requests\n\nurl = \"https://demo.avantation.in/api/v1/todos/1\"\n\npayload = \"\"\nheaders = {'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU'}\n\nresponse = requests.request(\"DELETE\", url, data=payload, headers=headers)\n\nprint(response.text)"
           -
-            lang: "NodeJs"
+            lang: "NodeJS"
             source: "var http = require(\"https\");\n\nvar options = {\n  \"method\": \"DELETE\",\n  \"hostname\": \"demo.avantation.in\",\n  \"port\": null,\n  \"path\": \"/api/v1/todos/1\",\n  \"headers\": {\n    \"authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9AdGVzdGluZy5jb20iLCJpYXQiOjE1NDQ4NjQwNjZ9.w2cc4F0EY3I3xMAJWHLPZoxD4231MBAfInzPhwA-jZU\"\n  }\n};\n\nvar req = http.request(options, function (res) {\n  var chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    var body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.end();"
