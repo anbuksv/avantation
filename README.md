@@ -90,14 +90,10 @@ OPTIONS
 
   -t, --template=template                  To override the default template pass the your template file location.
 
-  --build-static-ui                        Build the static user interface from generated OpenAPI3.0 specification.
-
   --disable-tag                            Diable end points grouping based on route path in HAR
 
   --http-snippet                           Generate HTTP smaple code snippet for request and append it as 'x-code-sample' to OpenAPI path
                                            object.
-
-  --static-ui-logo=static-ui-logo          Static-UI logo file location
 
 ```
 
@@ -124,3 +120,8 @@ OPTIONS
   <img alt="Redoc-UI" src="https://img.shields.io/badge/-Redoc-green.svg?style=social&logo=data:image/png;base64,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" />
 </a>
 </p>
+
+# FAQ
+
+<h3>How to generate Static-UI?</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;  avantation-ui bash script will help you to build static user interface for your specs but it's required <a href="https://www.npmjs.com/package/redoc-cli">redoc-cli. </a></p>
