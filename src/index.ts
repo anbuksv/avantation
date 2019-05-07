@@ -72,13 +72,6 @@ class Avantation extends Command {
             description: 'Map matching HTTP headers into security headers on request.',
             default: '{}'
         }),
-        'build-static-ui': flags.boolean({
-            description: 'Build the static user interface from generated OpenAPI3.0 specification.',
-            default: false
-        }),
-        'static-ui-logo': flags.string({
-            description: 'Static-UI logo file location'
-        }),
         'http-snippet': flags.boolean({
             description:
                 "Generate HTTP smaple code snippet for request and appedn it as 'x-code-sample' to OpenAPI path object.",
@@ -119,8 +112,6 @@ class Avantation extends Command {
             json: flags.json,
             disableTag: flags['disable-tag'],
             securityHeaders: JSON.parse(flags['security-headers'] || '{}'),
-            uiLogo: flags['static-ui-logo'],
-            'build-static-ui': flags['build-static-ui'],
             'http-snippet': flags['http-snippet']
             //	    maxDepth: flags['array-max-depth']
         };
