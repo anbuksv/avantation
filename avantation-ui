@@ -1,0 +1,22 @@
+#!/bin/bash
+SPEC_OUT="${PWD}/openapi.yaml";
+HTML_OUT="${PWD}/index.html";
+case "$1" in
+	--help)
+		echo "1st arugument should be har path."
+		exit 0;
+		;;
+esac
+
+if [ -z $1 ]; then
+	echo "Please pass HAR path location";
+	exit 0;
+fi
+
+HAR=$1;
+shift;
+avantation $HAR $@ -o $SPEC_OUT &&
+	redoc-cli bundle $SPEC_OUT -o $HTML_OUT
+
+echo "OpenAPI spec saved at $SPEC_OUT"
+echo "Static-UI saved at $HTML_OUT"

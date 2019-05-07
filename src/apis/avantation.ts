@@ -6,7 +6,6 @@ import * as querystring from 'querystring';
 import { Util } from './util';
 import * as fs from 'fs';
 import * as path from 'path';
-import StaticUI from './ui';
 import { colors as Color } from './logger';
 
 const HTTPSnippet: any = require('httpsnippet');
@@ -28,8 +27,6 @@ export class AvantationAPI implements Avantation.InputConfig {
     disableTag: boolean;
     mimeTypes: string[];
     securityHeaders: OAS.SecurityMap;
-    uiLogo?: string;
-    'build-static-ui': boolean;
     'http-snippet': boolean;
 
     constructor(input: Avantation.InputConfig, oclif: any) {
@@ -46,10 +43,6 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.mimeTypes = ['application/json', '', 'application/json; charset=utf-8'];
         this.disableTag = input.disableTag;
         this.securityHeaders = input.securityHeaders;
-        if (input.uiLogo) {
-            this.uiLogo = path.resolve(input.uiLogo);
-        }
-        this['build-static-ui'] = input['build-static-ui'];
         this['http-snippet'] = input['http-snippet'];
         this.run();
     }
@@ -68,12 +61,6 @@ export class AvantationAPI implements Avantation.InputConfig {
     buildEntry(entry: HAR.HarEntrie) {
         let url: Avantation.URL = new URL(entry.request.url);
         let method;
-
-        if (url.host !== this.host || !url.pathname.includes(this.basePath)) {
-            this.oclif.warn(`Skiping invalid url ${url.href}`);
-            return; //simply ingnore invalid url match
-        }
-
         entry.response.content.mimeType =
             entry.response.content.mimeType === 'application/json; charset=utf-8'
                 ? 'application/json'
@@ -81,6 +68,11 @@ export class AvantationAPI implements Avantation.InputConfig {
         if (!this.mimeTypes.includes(entry.response.content.mimeType)) {
             // console.log(entry.response.content);
             this.oclif.warn(`Skiping invalid mimeType:${entry.response.content.mimeType} @${url.href} in response.`);
+            return;
+        }
+
+        if (url.host !== this.host || !url.pathname.includes(this.basePath)) {
+            this.oclif.warn(`Skiping invalid url ${url.href}`);
             return; //simply ingnore invalid url match
         }
 
@@ -431,20 +423,7 @@ export class AvantationAPI implements Avantation.InputConfig {
 
     afterBuildComplete() {
         this.logSucess('all taskes completed');
-        if (this['build-static-ui']) this.buildStaticUI();
     }
 
-    buildStaticUI() {
-        let StaticUIOut: any = this.out
-            ? path.dirname(path.resolve(this.out)) + '/index.html'
-            : path.join(process.cwd(), 'index.html');
-        StaticUI({
-            api: this.template,
-            host: this.host,
-            basePath: this.basePath,
-            outPath: StaticUIOut,
-            httpSchema: 'http',
-            logo: this.uiLogo
-        });
-    }
+    buildStaticUI() {}
 }

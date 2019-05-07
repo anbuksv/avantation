@@ -30,7 +30,11 @@
   "engines": {
     "node": ">=10.14.2"
   },
-  "files": ["/bin", "/lib", "/man"],
+  "files": [
+    "/bin",
+    "/lib",
+    "/man"
+  ],
   "homepage": "https://github.com/anbuksv/avantation",
   "keywords": [
     "oclif",
