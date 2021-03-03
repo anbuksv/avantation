@@ -18,7 +18,7 @@
         "shins": "^2.3.2-3",
         "tslib": "^1.9.3",
         "url-parse": "^1.4.4",
-        "widdershins": "^3.6.6"
+        "widdershins": "^4.0.1"
     },
     "devDependencies": {
         "@types/chai": "^4.1.7",
