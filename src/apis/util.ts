@@ -1,8 +1,8 @@
-const GenerateSchema: any = require('generate-schema');
 import * as HAR from '../interfaces/har';
+import * as GenerateSchema from './json.js';
 export namespace Util {
     export function generateSchema(input: any): any {
-        let schema = GenerateSchema.json(input);
+        let schema = GenerateSchema(input)
         delete schema['$schema'];
         return schema;
     }
