@@ -66,3 +66,8 @@ typings/
 oclif_github_release
 docs.txt
 
+# type script incremental build
+*.tsbuildinfo
+
+# VS Code custom config
+.vscode

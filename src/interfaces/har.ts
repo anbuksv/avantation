@@ -1,7 +1,7 @@
 export interface log {
     version: string;
     creator: HarCreator;
-    entries: HarEntrie[];
+    entries: HarEntry[];
     pages?: any;
 }
 
@@ -10,7 +10,7 @@ export interface HarCreator {
     version: string;
 }
 
-export interface HarEntrie {
+export interface HarEntry {
     startedDateTime: string;
     time: number;
     request: HarRequest;
