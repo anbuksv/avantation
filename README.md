@@ -84,7 +84,7 @@ OPTIONS
 
   -o, --out=out                            [default: ./openapi.yaml] Write output result at this DEST location.
 
-  -r, --path-param-regex=path-param-regex  [default: [0-9]|[-$@!~%^*()_+]] Convert Regex matching params into dynamic path
+  -r, --path-param-regex=path-param-regex  [default: ^([0-9]|[-$@!~%^*()_+])+$] Convert Regex matching params into dynamic path
 
   -s, --security-headers=security-headers  [default: {}] Map matching HTTP headers into security headers on request.
 

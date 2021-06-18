@@ -57,7 +57,7 @@ class Avantation extends Command {
         'path-param-regex': flags.string({
             char: 'r',
             description: 'Convert Regex matching params into dynamic path ',
-            default: '[0-9]|[-$@!~%^*()_+]'
+            default: '^([0-9]|[-$@!~%^*()_+])+$'
         }),
         json: flags.boolean({
             char: 'j',
@@ -106,7 +106,7 @@ class Avantation extends Command {
             basePath: flags['base-path'] || '',
             template: template,
             out: flags.out || './openapi.yaml',
-            pathParamRegex: flags['path-param-regex'] || '[0-9]|[-$@!~%^*()_+]',
+            pathParamRegex: flags['path-param-regex'] || '^([0-9]|[-$@!~%^*()_+])+$',
             pipe: pipe,
             json: flags.json,
             disableTag: flags['disable-tag'],
