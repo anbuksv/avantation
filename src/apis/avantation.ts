@@ -75,9 +75,22 @@ export class AvantationAPI implements Avantation.InputConfig {
 
         // console.log(`query:${url.query} and path:${url.pathname}`);
         let path: Avantation.Path | undefined = this.buildPathDetails(url);
-        if (path === undefined) return; //simpley ignore invalid path match api
-        // let hardCodedQuery: OAS.ParameterObject[] = this.buildHardCodedQueryParams(url);
+        if (path === undefined) return; //simply ignore invalid path match api
+        let hardCodedQuery: OAS.ParameterObject[] = this.buildHardCodedQueryParams(url);
         let queryParams: OAS.ParameterObject[] = this.buildQueryParams(entry.request.queryString);
+
+        // Avoid duplicating hardcoded query params from the URL, and those
+        // specified in the HAR request queryString
+        let uniqueQueryParams = new Map<string, OAS.ParameterObject>();
+        hardCodedQuery.forEach((q) => {
+            uniqueQueryParams.set(q.name, q)
+        });
+        queryParams.forEach((q) => {
+            if (!uniqueQueryParams.has(q.name)) {
+                uniqueQueryParams.set(q.name, q)
+            }
+        });
+
         let requestBody: OAS.RequestBodyObject | undefined = this.buildRequestBody(entry.request.postData, url);
         let response: OAS.Response = this.buildResponse(entry.response);
         let security: OAS.SecurityRequirementObject = this.buildSecurity(entry.request.headers);
@@ -86,7 +99,7 @@ export class AvantationAPI implements Avantation.InputConfig {
             security: Object.keys(security).length > 0 ? [security] : [],
             tags: [pathItemInfo.tag],
             summary: pathItemInfo.comment || pathItemInfo.tag,
-            parameters: [...path.params, ...hardCodedQuery, ...queryParams],
+            parameters: [...path.params, ...uniqueQueryParams.values()],
             requestBody: requestBody,
             responses: response
         };
@@ -132,15 +145,15 @@ export class AvantationAPI implements Avantation.InputConfig {
         if (basePathArr.length !== 2) {
             this.oclif.warn(
                 'Skipping following invalid path API:' +
-                    JSON.stringify(
-                        {
-                            host: url.host,
-                            path: url.pathname,
-                            basePath: this.basePath
-                        },
-                        null,
-                        4
-                    )
+                JSON.stringify(
+                    {
+                        host: url.host,
+                        path: url.pathname,
+                        basePath: this.basePath
+                    },
+                    null,
+                    4
+                )
             );
             return undefined;
         }
@@ -150,7 +163,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         let that = this;
         let dynamicPathParam: OAS.ParameterObject[] = [];
         let dynamicPathProcessId: number = 0;
-        pathArr.forEach(function(path: string, index: number) {
+        pathArr.forEach(function (path: string, index: number) {
             if (!pathTag) pathTag = path;
             let isDynamicPath: boolean = that.pathRegex.test(path);
             if (isDynamicPath) {
@@ -199,7 +212,7 @@ export class AvantationAPI implements Avantation.InputConfig {
 
     buildQueryParams(queryArray: HAR.NameValue[]): OAS.ParameterObject[] {
         let params: OAS.ParameterObject[] = [];
-        params = queryArray.map(function(query: HAR.NameValue) {
+        params = queryArray.map(function (query: HAR.NameValue) {
             let param: OAS.ParameterObject = {
                 in: OASEnum.ParameterObject.IN.Query,
                 name: query.name,
@@ -253,7 +266,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     buildFormData(postData: HAR.PostData): any {
         if (postData.params !== undefined && postData.params.length !== 0) {
             let properties: any = {};
-            let required: any = postData.params.map(function(query: HAR.NameValue) {
+            let required: any = postData.params.map(function (query: HAR.NameValue) {
                 if (query.value == '' || query.value == '(binary)') {
                     properties[query.name] = {
                         type: 'string',
@@ -317,7 +330,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     buildSecurity(headers: HAR.NameValue[]): OAS.SecurityRequirementObject {
         let security: OAS.SecurityRequirementObject = {};
         let that = this;
-        headers.forEach(function(header: HAR.NameValue) {
+        headers.forEach(function (header: HAR.NameValue) {
             if (header.name.trim().toLocaleLowerCase() === 'authorization') security['JWT'] = [];
 
             if (that.securityHeaders[header.name.trim()]) security[header.name.trim()] = [];
@@ -379,7 +392,7 @@ export class AvantationAPI implements Avantation.InputConfig {
             }
 
         let that = this;
-        this.template.servers.forEach(function(server: OAS.ServerObject) {
+        this.template.servers.forEach(function (server: OAS.ServerObject) {
             server.url = server.url.replace('{host}', that.host);
             if (server.variables && server.variables.basePath && typeof server.variables.basePath == 'object') {
                 server.variables.basePath.default = server.variables.basePath.default.replace(
@@ -422,5 +435,5 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.logSuccess('all taskes completed');
     }
 
-    buildStaticUI() {}
+    buildStaticUI() { }
 }
