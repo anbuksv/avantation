@@ -1,13 +1,12 @@
 import Command, { flags } from '@oclif/command';
 import { AvantationAPI } from './apis/avantation';
 import defaultTemplate from './templates/avantation';
-import { colors as Color } from './apis/logger';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as HAR from './interfaces/har';
 import * as AvantationInterface from './interfaces/avantation';
 import * as OAS from './interfaces/oas';
-var URL: any = require('url-parse');
+import { Util } from './apis/util';
 
 let pipe: boolean = !process.stdout.isTTY;
 let stdin: boolean = !process.stdin.isTTY;
@@ -99,8 +98,8 @@ class Avantation extends Command {
         let host: string = flags.host
             ? flags.host
             : har.log.entries.length > 0
-            ? new URL(har.log.entries[0].request.url).host
-            : 'url parse failed - avantation';
+            ? Util.inferHost(har.log.entries)
+            : "";
         var input: AvantationInterface.InputConfig = {
             har: har,
             host: host,

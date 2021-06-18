@@ -48,17 +48,15 @@ export class AvantationAPI implements Avantation.InputConfig {
     }
 
     private async run() {
-        // console.log("Creater:", this.har.log.creator);
-        let req: OAS.OperationObject;
         this.har.log.entries.forEach(this.buildEntry.bind(this));
         this.onBuildComplete(this.template);
     }
 
-    logSucess(head: string): void {
+    logSuccess(head: string): void {
         this.oclif.log(`${Color.Bright}${Color.fg.Green}✔ ${Color.Reset}${head}`);
     }
 
-    buildEntry(entry: HAR.HarEntrie) {
+    buildEntry(entry: HAR.HarEntry) {
         let url: Avantation.URL = new URL(entry.request.url);
         let method;
         entry.response.content.mimeType =
@@ -66,22 +64,21 @@ export class AvantationAPI implements Avantation.InputConfig {
                 ? 'application/json'
                 : entry.response.content.mimeType;
         if (!this.mimeTypes.includes(entry.response.content.mimeType)) {
-            // console.log(entry.response.content);
-            this.oclif.warn(`Skiping invalid mimeType:${entry.response.content.mimeType} @${url.href} in response.`);
+            this.oclif.warn(`Skipping invalid mimeType:${entry.response.content.mimeType} @${url.href} in response.`);
             return;
         }
 
         if (url.host !== this.host || !url.pathname.includes(this.basePath)) {
-            this.oclif.warn(`Skiping invalid url ${url.href}`);
-            return; //simply ingnore invalid url match
+            this.oclif.warn(`Skipping invalid url ${url.href}`);
+            return; //simply ignore invalid url match
         }
 
         // console.log(`query:${url.query} and path:${url.pathname}`);
         let path: Avantation.Path | undefined = this.buildPathDetails(url);
-        if (path === undefined) return; //simpley ingnore invalid path match api
-        let hardCodedQuery: OAS.ParameterObject[] = this.buildHardCodedQueryParams(url);
+        if (path === undefined) return; //simpley ignore invalid path match api
+        // let hardCodedQuery: OAS.ParameterObject[] = this.buildHardCodedQueryParams(url);
         let queryParams: OAS.ParameterObject[] = this.buildQueryParams(entry.request.queryString);
-        let requestBody: OAS.RequestBodyObject | undefined = this.buildRequestbody(entry.request.postData, url);
+        let requestBody: OAS.RequestBodyObject | undefined = this.buildRequestBody(entry.request.postData, url);
         let response: OAS.Response = this.buildResponse(entry.response);
         let security: OAS.SecurityRequirementObject = this.buildSecurity(entry.request.headers);
         let pathItemInfo: Avantation.PathItemInfo = this.buildTag(entry.comment, path.tag);
@@ -126,7 +123,7 @@ export class AvantationAPI implements Avantation.InputConfig {
                 this.template.paths[path.value].delete = operationItem;
                 break;
         }
-        if (!this.pipe) this.logSucess(method + '\t' + url.pathname);
+        if (!this.pipe) this.logSuccess(method + '\t' + url.pathname);
     }
 
     buildPathDetails(url: Avantation.URL): Avantation.Path | undefined {
@@ -134,7 +131,7 @@ export class AvantationAPI implements Avantation.InputConfig {
 
         if (basePathArr.length !== 2) {
             this.oclif.warn(
-                'Skiping following invalid path API:' +
+                'Skipping following invalid path API:' +
                     JSON.stringify(
                         {
                             host: url.host,
@@ -216,7 +213,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         return params;
     }
 
-    buildRequestbody(postData: HAR.PostData | undefined, url: Avantation.URL): OAS.RequestBodyObject | undefined {
+    buildRequestBody(postData: HAR.PostData | undefined, url: Avantation.URL): OAS.RequestBodyObject | undefined {
         if (postData == undefined || !postData.mimeType) return undefined;
 
         let param: OAS.RequestBodyObject = {
@@ -422,7 +419,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     }
 
     afterBuildComplete() {
-        this.logSucess('all taskes completed');
+        this.logSuccess('all taskes completed');
     }
 
     buildStaticUI() {}
