@@ -4,7 +4,7 @@ avantation \- build openapi3.0 specification from HAR
 .SH SYNOPSIS
 avantation [HAR]
 .SH DESCRIPTION
-avantation is tool the for generate OpenAPI3.0 from HTTP Archive format(HAR).
+avantation is a tool to generate an OpenAPI 3.0 specification from HTTP Archive format(HAR).
 .SH OPTIONS
 
 .TP
@@ -25,7 +25,7 @@ Separate the common path as base path from \fBHTTP requests\fR
 \fB\-r\fR, \fB\-\-path\-param\-regex\fR
 Converts regex matching paths into dynamic paths.
 .br
-\fBdefault:\fR [0-9]|[-$@!~%^*()_+]
+\fBdefault:\fR ^([0-9]|[-$@!~%^*()_+])+$
 
 .TP
 \fB\-s\fR, \fB\-\-security\-headers\fR
@@ -33,7 +33,7 @@ Map matching \fBHTTP\fR headers into security headers on request.
 .br
 \fBSyntax:\fR
 {
-"\fBheaderNameInHTTPRequest\fR": {Sequrity Scheme Object as per OAS3.0}
+"\fBheaderNameInHTTPRequest\fR": {Security Scheme Object as per OAS3.0}
 }
 .br
 \fBExample:\fR
