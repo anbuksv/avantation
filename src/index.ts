@@ -119,4 +119,4 @@ class Avantation extends Command {
     }
 }
 
-export = Avantation;
+export = { Avantation, AvantationAPI }
