@@ -1,0 +1,15 @@
+name: Avantation Package Build Test
+
+on: workflow_dispatch
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Oclif-Dev Installation
+      run: |
+        npm install -g @oclif/dev-cli
+    - name: Package Build
+      run: |
+        oclif-dev pack
