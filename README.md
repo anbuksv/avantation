@@ -24,7 +24,7 @@
   </a>
 </p>
 
-avantation is tool the for generate OpenAPI3.0 from HTTP Archive format(HAR).
+avantation is a tool to generate an OpenAPI 3.0 specification from HTTP Archive format(HAR).
 
 avantation is written and maintained by Anbarasan K (anbuksv@gmail.com).
 

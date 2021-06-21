@@ -1,7 +1,7 @@
 {
     "name": "avantation",
     "description": "Build OpenAPI3.0 specification from HAR",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "author": "Anbarasan K <anbuksv@gmail.com> (https://www.avantation.in)",
     "bin": {
         "avantation": "./bin/run"
@@ -45,7 +45,7 @@
         "REST",
         "REST API'S",
         "API",
-        "OpenAPI Sepecification",
+        "OpenAPI Specification",
         "OAS",
         "Swagger",
         "HAR",
