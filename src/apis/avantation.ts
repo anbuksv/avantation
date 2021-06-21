@@ -14,6 +14,7 @@ const YAML: any = require('json2yaml');
 
 export class AvantationAPI implements Avantation.InputConfig {
     har: HAR.Final;
+    title: string;
     template: OAS.Template;
     host: string;
     basePath: string;
@@ -31,6 +32,7 @@ export class AvantationAPI implements Avantation.InputConfig {
 
     constructor(input: Avantation.InputConfig, oclif: any) {
         this.har = input.har;
+        this.title = input.title;
         this.host = input.host;
         this.basePath = input.basePath;
         this.pathParamRegex = input.pathParamRegex;
@@ -49,7 +51,7 @@ export class AvantationAPI implements Avantation.InputConfig {
 
     private async run() {
         this.har.log.entries.forEach(this.buildEntry.bind(this));
-        this.onBuildComplete(this.template);
+        this.onBuildComplete();
     }
 
     logSuccess(head: string): void {
@@ -381,7 +383,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         ];
     }
 
-    onBuildComplete(openapi: OAS.Template): void {
+    onBuildComplete(): void {
         if (!this.template.tags) this.template.tags = [];
 
         if (!this.disableTag)
@@ -392,6 +394,8 @@ export class AvantationAPI implements Avantation.InputConfig {
             }
 
         let that = this;
+        this.template.info.title = that.title;
+
         this.template.servers.forEach(function (server: OAS.ServerObject) {
             server.url = server.url.replace('{host}', that.host);
             if (server.variables && server.variables.basePath && typeof server.variables.basePath == 'object') {

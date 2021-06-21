@@ -48,6 +48,7 @@ export interface build {
 
 export interface InputConfig {
     har: HAR.Final;
+    title: string;
     host: string;
     basePath: string;
     template: OAS.Template;

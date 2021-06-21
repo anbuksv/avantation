@@ -2,7 +2,7 @@ let defaultTemplate: any = {
     openapi: '3.0.0',
     info: {
         version: '1.0',
-        title: 'Avantation REST Template',
+        title: '{title}',
         description: 'TODO: Add Description'
     },
     servers: [

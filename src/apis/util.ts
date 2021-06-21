@@ -1,5 +1,5 @@
 import * as HAR from '../interfaces/har';
-import * as GenerateSchema from './json.js';
+import GenerateSchema from './json.js';
 export namespace Util {
     export function generateSchema(input: any): any {
         let schema = GenerateSchema(input)
