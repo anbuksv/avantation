@@ -102,6 +102,7 @@ class Avantation extends Command {
             : "";
         var input: AvantationInterface.InputConfig = {
             har: har,
+            title: "Avantation REST Template",
             host: host,
             basePath: flags['base-path'] || '',
             template: template,
