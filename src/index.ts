@@ -64,7 +64,7 @@ class Avantation extends Command {
             description: 'Write output result in JSON format.'
         }),
         'disable-tag': flags.boolean({
-            description: 'Diable end points grouping based on route path in HAR'
+            description: 'Disable end points grouping based on route path in HAR'
         }),
         'security-headers': flags.string({
             char: 's',
@@ -73,7 +73,7 @@ class Avantation extends Command {
         }),
         'http-snippet': flags.boolean({
             description:
-                "Generate HTTP smaple code snippet for request and appedn it as 'x-code-sample' to OpenAPI path object.",
+                "Generate HTTP sample code snippet for request and append it as 'x-code-sample' to OpenAPI path object.",
             default: false
         })
     };
