@@ -50,5 +50,5 @@ jobs:
         for asset in $DIR; do
           assets+=("-a" "$asset")
         done
-        tag_name="${{ github.ref }}"
-        hub release create "${assets[@]}" -m "$tag_name" "v${{ steps.metadata.outputs.package-name }}"
+        tag_name="${GITHUB_REF##*/}" #${{ github.ref }}
+        hub release create "${assets[@]}" -m "$tag_name" "${{ steps.metadata.outputs.package-name }}"
