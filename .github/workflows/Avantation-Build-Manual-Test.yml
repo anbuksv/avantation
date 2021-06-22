@@ -59,4 +59,4 @@ jobs:
           assets+=("-a" "$asset")
         done
         tag_name="tv1.0.0" #"${GITHUB_REF##*/}"
-        hub release create "${assets[@]}" -m "$tag_name" "v${{ steps.metadata.outputs.package-name }}"
+        hub release create "${assets[@]}" -d -m "$tag_name" "v${{ steps.metadata.outputs.package-name }}"
