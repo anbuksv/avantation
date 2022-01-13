@@ -1,0 +1,54 @@
+name: Build and Create Github Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  Avantation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+        
+    - name: Install oclif-dev
+      run: npm install -g @oclif/dev-cli
+
+    - name: Testing
+      run: npm run test
+
+    - name: Package metadata
+      id: metadata
+      run: |
+        set -x
+        sudo apt-get install jq
+        export PACKAGE_VERSION=$(cat package.json | jq -r .version)
+        export PACKAGE_NAME="avantation-v${PACKAGE_VERSION}"
+        export PACKAGE_LIST="./dist/${PACKAGE_NAME}/*"
+        
+        echo "::set-output name=package-version::${PACKAGE_VERSION}"
+        echo "::set-output name=package-name::${PACKAGE_NAME}"
+        echo "::set-output name=package-dir::${PACKAGE_LIST}"
+
+    - name: Package Build
+      run: oclif-dev pack
+
+    - name: Release package to Github #ref: https://hub.github.com/hub-release.1.html
+      id: upload-plugin-asset
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        set -x
+        assets=()
+        export DIR="${{ steps.metadata.outputs.package-dir }}"
+        for asset in $DIR; do
+          assets+=("-a" "$asset")
+        done
+        tag_name="${GITHUB_REF##*/}" #${{ github.ref }}
+        hub release create "${assets[@]}" -m "$tag_name" "${{ steps.metadata.outputs.package-name }}"
