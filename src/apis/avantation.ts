@@ -49,8 +49,10 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.run();
     }
 
-    private async run() {
-        this.har.log.entries.forEach(this.buildEntry.bind(this));
+    private run() {
+        if(this.har.log.entries !== undefined) {
+            this.har.log.entries.forEach(this.buildEntry.bind(this));
+        }
         this.onBuildComplete();
     }
 
