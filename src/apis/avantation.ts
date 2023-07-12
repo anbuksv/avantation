@@ -61,6 +61,10 @@ export class AvantationAPI implements Avantation.InputConfig {
     buildEntry(entry: HAR.HarEntry) {
         let url: Avantation.URL = new URL(entry.request.url);
         let method;
+        if (!entry.response) {
+            this.oclif.warn(`Skipping HAR entry without response`);
+            return;
+        }
         entry.response.content.mimeType =
             entry.response.content.mimeType === 'application/json; charset=utf-8'
                 ? 'application/json'
