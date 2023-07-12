@@ -240,7 +240,13 @@ export class AvantationAPI implements Avantation.InputConfig {
             switch (postData.mimeType.split(';')[0].toLocaleLowerCase()) {
                 case 'application/json':
                 case 'application/json; charset=utf-8':
-                    let data = postData.text ? JSON.parse(postData.text) : {};
+                    let data;
+                    try {
+                        data = postData.text ? JSON.parse(postData.text) : {};
+                    } catch(e) {
+                        this.oclif.warn(`Unable to parse post data ${e}`);
+                        break;
+                    }
                     param.content[postData.mimeType] = {
                         schema: Util.generateSchema(data),
                         example: data
@@ -310,7 +316,13 @@ export class AvantationAPI implements Avantation.InputConfig {
             res.content.text = Buffer.from(res.content.text, 'base64').toString();
         }
 
-        let responseData = JSON.parse(res.content.text);
+        let responseData;
+        try {
+            responseData = JSON.parse(res.content.text);
+        } catch(e) {
+            this.oclif.warn(`Unable to parse post response data ${e}`);
+            return response;
+        }
         if (responseData instanceof Array) {
             responseData = responseData.slice(0, 3);
         } else {
