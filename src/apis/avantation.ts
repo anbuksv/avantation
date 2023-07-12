@@ -42,7 +42,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.out = input.out;
         this.pathRegex = new RegExp(this.pathParamRegex);
         this.oclif = oclif;
-        this.mimeTypes = ['application/json', '', 'application/json; charset=utf-8'];
+        this.mimeTypes = input.mimeTypes || ['application/json', '', 'application/json; charset=utf-8'];
         this.disableTag = input.disableTag;
         this.securityHeaders = input.securityHeaders;
         this['http-snippet'] = input['http-snippet'];

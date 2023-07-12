@@ -59,4 +59,5 @@ export interface InputConfig {
     disableTag: boolean;
     securityHeaders: OAS.SecurityMap;
     'http-snippet': boolean;
+    mimeTypes?: string[];
 }
