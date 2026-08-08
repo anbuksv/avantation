@@ -29,6 +29,7 @@ export class AvantationAPI implements Avantation.InputConfig {
     mimeTypes: string[];
     securityHeaders: OAS.SecurityMap;
     'http-snippet': boolean;
+    hosts: string[];
 
     constructor(input: Avantation.InputConfig, oclif: any) {
         this.har = input.har;
@@ -46,6 +47,7 @@ export class AvantationAPI implements Avantation.InputConfig {
         this.disableTag = input.disableTag;
         this.securityHeaders = input.securityHeaders;
         this['http-snippet'] = input['http-snippet'];
+        this.hosts = [];
         this.run();
     }
 
@@ -60,6 +62,9 @@ export class AvantationAPI implements Avantation.InputConfig {
 
     buildEntry(entry: HAR.HarEntry) {
         let url: Avantation.URL = new URL(entry.request.url);
+        if (!this.hosts.includes(url.host)) {
+            this.hosts.push(url.host);
+        }
         let method;
         entry.response.content.mimeType =
             entry.response.content.mimeType === 'application/json; charset=utf-8'
@@ -70,9 +75,9 @@ export class AvantationAPI implements Avantation.InputConfig {
             return;
         }
 
-        if (url.host !== this.host || !url.pathname.includes(this.basePath)) {
+        if (this.basePath && !url.pathname.includes(this.basePath)) {
             this.oclif.warn(`Skipping invalid url ${url.href}`);
-            return; //simply ignore invalid url match
+            return;
         }
 
         // console.log(`query:${url.query} and path:${url.pathname}`);
@@ -396,15 +401,9 @@ export class AvantationAPI implements Avantation.InputConfig {
         let that = this;
         this.template.info.title = that.title;
 
-        this.template.servers.forEach(function (server: OAS.ServerObject) {
-            server.url = server.url.replace('{host}', that.host);
-            if (server.variables && server.variables.basePath && typeof server.variables.basePath == 'object') {
-                server.variables.basePath.default = server.variables.basePath.default.replace(
-                    '{basePath}',
-                    that.basePath
-                );
-            }
-        });
+        this.template.servers = that.hosts.map(host => ({
+            url: `https://${host}${that.basePath}`
+        }));
 
         if (this.template.components && this.template.components.securitySchemes) {
             for (let security in this.securityHeaders) {
